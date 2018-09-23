@@ -31,7 +31,7 @@ class SchoolsCreateUpdate extends Component {
         e.preventDefault();
     }
     render() {
-        const { school, id } = this.props;
+        const { school, id, destroySchool, history } = this.props;
         const { handleNameChange, handleDescriptionChange, handleAddressChange, onSubmit, onCreate } = this;
         const { name, description, address } = this.state;
         return(
@@ -50,16 +50,17 @@ class SchoolsCreateUpdate extends Component {
                     <br/>
                     <button disabled={ !name || !description || !address }>Save</button>
                 </form>
-                <button onClick={ () => destroySchool(school) }>Delete</button>
+                <button onClick={ () => destroySchool(school, history) }>Delete</button>
                 <button onClick={ () => onCreate() }>Add new student</button>
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = ({ schools }, { id }) => ({ 
+const mapStateToProps = ({ schools }, { id, history }) => ({ 
     school: schools[id - 1],
-    id 
+    id,
+    history 
 });
 
 const mapDispatchToProps = { destroySchool };

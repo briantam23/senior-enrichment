@@ -16,10 +16,11 @@ const _destroySchool = school => ({
     type: DESTROY_SCHOOL,
     schools: school
 })
-export const destroySchool = school => (
+export const destroySchool = (school, history) => (
     dispatch => {
         return axios.delete(`/api/schools/${school.id}`)
             .then(() => dispatch(_destroySchool(school)))
+            .then(() => history.push('/schools'))
     }
 )
 

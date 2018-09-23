@@ -15,7 +15,7 @@ class App extends Component {
     }
     render() {
         const { students } = this.props;
-        if(!students[0]) return <h1>Loading...</h1>
+        if(!students[0]) return <h1>Loading...</h1> //&& students.length > 0
         return(
             <Fragment>
                 <h1>Acme School</h1>
@@ -24,7 +24,7 @@ class App extends Component {
                         <Nav />
                         <Route exact path='/schools' render={ () => <Schools /> } />
                         <Route path='/students' render={ () => <Students /> } />
-                        <Route path='/schools/:id' render={ ({ match }) => <SchoolsCreateUpdate id={ match.params.id } /> } />
+                        <Route path='/schools/:id' render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
                     </Fragment>
                 </Router>
             </Fragment>
