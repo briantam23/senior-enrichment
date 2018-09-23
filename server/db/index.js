@@ -7,27 +7,61 @@ Student.belongsTo(School);
 School.hasMany(Student);
 
 const syncAndSeed = () => {
-    let Eric, Mymy, Pearl, Brian, Hofstra, Michigan, NYU;
+    let mike, jamel, robby, brian, johnny, georgeWashington, cornwell, westHempstead, islandPark;
     conn.sync({ force: true })
         .then(() => Promise.all([
-            Student.create({ name: 'Eric' }),
-            Student.create({ name: 'Mymy' }),
-            Student.create({ name: 'Pearl' }),
-            Student.create({ name: 'Brian' })
+            Student.create({ 
+                firstName: 'Mike',
+                lastName: 'Brown',
+                GPA: 2.8
+            }),
+            Student.create({ 
+                firstName: 'Jamel',
+                lastName: 'Smith',
+                GPA: 3.1
+            }),
+            Student.create({ 
+                firstName: 'Robby',
+                lastName: 'Chan',
+                GPA: 3.5 
+            }),
+            Student.create({ 
+                firstName: 'Brian',
+                lastName: 'Peters',
+                GPA: 3.5
+            }),
+            Student.create({ 
+                firstName: 'Johnny',
+                lastName: 'Johnson',
+                GPA: 3.0
+            })
         ]))
         .then(students => {
-            [Eric, Mymy, Pearl, Brian] = students;
+            [mike, jamel, robby, brian] = students;
             return Promise.all([
-                School.create({ name: 'Hofstra' }),
-                School.create({ name: 'Michigan'}),
-                School.create({ name: 'NYU' })
+                School.create({ 
+                    name: 'George Washington',
+                    address: '231 Main Street, New York, NY 10007' 
+                }),
+                School.create({ 
+                    name: 'Cornwell',
+                    address: '43 Stewart Avenue, Brooklyn, NY 11216'
+                }),
+                School.create({ 
+                    name: 'West Hempstead',
+                    address: '4 Linden Street, West Hempstead, NY 11552' 
+                }),
+                School.create({ 
+                    name: 'Island Park',
+                    address: '33 Ocean Drive, Island Park, NY 11558' 
+                })
             ])
         })
         .then(schools => {
-            [Hofstra, Michigan, NYU] = schools;
-            Pearl.setSchool(NYU);
-            Brian.setSchool(Michigan);
-            Brian.setSchool(Hofstra);
+            [georgeWashington, cornwell, westHempstead, islandPark] = schools;
+            mike.setSchool(westHempstead);
+            jamel.setSchool(georgeWashington);
+            brian.setSchool(georgeWashington);
         })
 }
 

@@ -1,25 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { loadInitialSchools } from '../store/actions';
+import { loadInitialSchools, loadInitialStudents } from '../store/actions';
+import Nav from './Nav';
 
 class App extends Component {
     componentDidMount() {
-        this.props.loadInitialSchools();
+        const { loadInitialSchools, loadInitialStudents } = this.props;
+        loadInitialSchools();
+        loadInitialStudents();
     }
     render() {
-        //const { fetchSchools } = this.props;
+        const { students } = this.props;
+        if(!students[0]) return <h1>Loading...</h1>
         return(
-            <h1>Acme School</h1>
+            <Fragment>
+                <h1>Acme School</h1>
+                <Nav />
+            </Fragment>
         )
     }
 }
 
-const mapStateToProps = state => ({
-
+const mapStateToProps = ({ students })=> ({
+    students
 })
 
-const mapDispatchToProps = dispatch => ({
-    loadInitialSchools: () => dispatch(loadInitialSchools())
-})
+const mapDispatchToProps = { loadInitialSchools, loadInitialStudents };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

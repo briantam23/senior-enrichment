@@ -1,9 +1,7 @@
 import { LOAD_INITIAL_SCHOOLS } from '../constants';
 
 
-
-
-const school = (state = [], action) => {
+const schoolsReducer = (state = [], action) => {
     switch(action.type) {
         case LOAD_INITIAL_SCHOOLS:
             return action.schools;
@@ -12,4 +10,4 @@ const school = (state = [], action) => {
     }
 }
 
-export default school;
+export default schoolsReducer;
