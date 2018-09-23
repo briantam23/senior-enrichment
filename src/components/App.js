@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Schools from './Schools';
 import Students from './Students';
 import SchoolsCreateUpdate from './SchoolsCreateUpdate';
+import StudentsCreateUpdate from './StudentsCreateUpdate';
 
 class App extends Component {
     componentDidMount() {
@@ -15,16 +16,17 @@ class App extends Component {
     }
     render() {
         const { students } = this.props;
-        if(!students[0]) return <h1>Loading...</h1> //&& students.length > 0
+        if(!students[0]) return <h1>Loading...</h1> //what if there are no students
         return(
             <Fragment>
                 <h1>Acme School</h1>
                 <Router>
                     <Fragment>
                         <Nav />
-                        <Route exact path='/schools' render={ () => <Schools /> } />
-                        <Route path='/students' render={ () => <Students /> } />
-                        <Route path='/schools/:id' render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
+                        <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
+                        <Route exact path='/students' render={ () => <Students /> } />
+                        <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
+                        <Route path='/students/create' render={ () => <StudentsCreateUpdate /> } />
                     </Fragment>
                 </Router>
             </Fragment>

@@ -14,7 +14,8 @@
   "license": "ISC",
   "babel": {
     "presets": [
-      "react"
+      "react",
+      "stage-3"
     ]
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "pg": "^7.4.3",

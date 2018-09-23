@@ -13,7 +13,7 @@ router.get('/:id', (req, res, next) => {
 })
 router.post('/', (req, res, next) => {
     School.create(req.body)
-        .then(school => res.send(body))
+        .then(school => res.send(school))
         .catch(next)
 })
 router.put('/:id', (req, res, next) => {

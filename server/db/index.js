@@ -41,18 +41,22 @@ const syncAndSeed = () => {
             return Promise.all([
                 School.create({ 
                     name: 'George Washington',
+                    description: 'GW',
                     address: '231 Main Street, New York, NY 10007' 
                 }),
                 School.create({ 
                     name: 'Cornwell',
+                    description: 'CW',
                     address: '43 Stewart Avenue, Brooklyn, NY 11216'
                 }),
                 School.create({ 
                     name: 'West Hempstead',
+                    description: 'WH',
                     address: '4 Linden Street, West Hempstead, NY 11552' 
                 }),
                 School.create({ 
                     name: 'Island Park',
+                    description: 'IP',
                     address: '33 Ocean Drive, Island Park, NY 11558' 
                 })
             ])

@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { destroySchool } from '../store/actions';
+import { fetchSchool, createSchool, updateSchool, destroySchool } from '../store/actions';
 
 class SchoolsCreateUpdate extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             name: '',
             description: '',
@@ -13,7 +13,19 @@ class SchoolsCreateUpdate extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleAddressChange = this.handleAddressChange.bind(this);
-        //this.onSubmit
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onCreate = this.onCreate.bind(this);
+
+        const { id, fetchSchool } = this.props;
+        if(id !== 'create') fetchSchool(id);
+    }
+    componentDidUpdate(prevProps) {
+        const { school, id } = this.props;
+        if(prevProps !== this.props) {
+            id !== 'create' 
+            ? this.setState(school)
+            : this.setState({ name: '', description: '', address: '' })
+        }
     }
     handleNameChange(e) {
         this.setState({ name: e.target.value });
@@ -26,9 +38,15 @@ class SchoolsCreateUpdate extends Component {
     }
     onSubmit(e) {
         e.preventDefault();
+        const { id, history, createSchool, updateSchool } = this.props;
+        console.log(id)
+        id !== 'create' 
+        ? updateSchool({ ...this.state, id }, history)
+        : createSchool(this.state, history)
     }
     onCreate(e) {
         e.preventDefault();
+        this.props.history.push('/students/create');
     }
     render() {
         const { school, id, destroySchool, history } = this.props;
@@ -51,19 +69,21 @@ class SchoolsCreateUpdate extends Component {
                     <button disabled={ !name || !description || !address }>Save</button>
                 </form>
                 <button onClick={ () => destroySchool(school, history) }>Delete</button>
-                <button onClick={ () => onCreate() }>Add new student</button>
+                {
+                    id !== 'create' ? <button onClick={ (e) => onCreate(e) }>Add new student</button> : null 
+                }
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = ({ schools }, { id, history }) => ({ 
-    school: schools[id - 1],
+const mapStateToProps = ({ school }, { id, history }) => ({ 
+    school,
     id,
     history 
 });
 
-const mapDispatchToProps = { destroySchool };
+const mapDispatchToProps = { fetchSchool, createSchool, updateSchool, destroySchool };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SchoolsCreateUpdate);
 
