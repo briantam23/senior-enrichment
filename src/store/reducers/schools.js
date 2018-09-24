@@ -1,4 +1,4 @@
-import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
+import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, UNFETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
 
 
 export const schoolsReducer = (state = [], action) => {
@@ -20,6 +20,8 @@ export const schoolReducer = (state = {}, action) => {
     switch(action.type) {
         case FETCH_SCHOOL:
             return action.school;
+        case UNFETCH_SCHOOL:
+            return {};
         default: 
             return state;
     }

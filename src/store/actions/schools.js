@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
+import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, UNFETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
 
 const _loadInitialSchools = schools => ({
     type: LOAD_INITIAL_SCHOOLS,
@@ -16,6 +16,9 @@ export const loadInitialSchools = () => (
 const _fetchSchool = school => ({
     type: FETCH_SCHOOL,
     school
+})
+export const _unfetchSchool = () => ({
+    type: UNFETCH_SCHOOL
 })
 export const fetchSchool = id => (
     dispatch => (

@@ -10,25 +10,23 @@ class StudentsCreateUpdate extends Component {
             firstName: '',
             lastName: '',
             GPA: 3.0,
-            school: ''
+            schoolName: ''
         }
         this.handleFNameChange = this.handleFNameChange.bind(this);
         this.handleLNameChange = this.handleLNameChange.bind(this);
         this.handleGPAChange = this.handleGPAChange.bind(this);
+        this.handleSchoolChange = this.handleSchoolChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         const { fetchStudent, id, fetchSchool, student } = this.props;
-        fetchStudent(id)
-            /* .then(student => {
-                student.schoolId ? fetchSchool(student.schoolId) : null
-            })
-            .then(school => this.setState({ school: school.name })) 
-            console.log(student.schoolId)
-            student.schoolId ? fetchSchool(student.schoolId) : null */
+        id !== 'create' ? fetchStudent(id) : null  
     }
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {         //won't clear school after selecting student w/ school
+        const { student, school } = this.props;
+        console.log(school)
         if(prevProps !== this.props) {
-            this.setState(this.props.student);
-            //this.props.student.schoolId ? this.props.fetchSchool(this.props.student.schoolId) : null;
+            this.setState({ 
+                firstName: student.firstName, lastName: student.lastName, GPA: student.GPA , schoolName: school.name 
+            })
         }
     }
     handleFNameChange(e) {
@@ -40,13 +38,16 @@ class StudentsCreateUpdate extends Component {
     handleGPAChange(e) {
         this.setState({ GPA: e.target.value });
     }
+    handleSchoolChange(e) {
+
+    }
     onSubmit(e) {
 
     }
     render() {
-        const { student } = this.props;
-        const { firstName, lastName, GPA, school } = this.state;
-        const { handleFNameChange, handleLNameChange, handleGPAChange, onSubmit } = this;
+        const { student, schools } = this.props;
+        const { firstName, lastName, GPA, schoolName } = this.state;
+        const { handleFNameChange, handleLNameChange, handleGPAChange, handleSchoolChange, onSubmit } = this;
         return(
             <Fragment>
                 <h2>Student</h2>
@@ -61,8 +62,15 @@ class StudentsCreateUpdate extends Component {
                     <label htmlFor='GPA'>GPA: </label>
                         <input onChange={ handleGPAChange } value={ GPA } id='GPA'></input>
                         <br/>
-                    <label htmlFor='school'>School: </label>
-                        <select /* value={ school }  */id='school'>School</select>
+                    <label htmlFor='schoolName'>School: </label>
+                        <select onChange={ handleSchoolChange } value={ schoolName }  id='schoolName'>
+                            <option>--None--</option>
+                        {
+                            schools.map(school => <option key={ school.id }>
+                                { school.name }
+                            </option>)
+                        }
+                        </select>
                         <br/>
                     <button disabled={ !firstName || !lastName || !GPA }>Save</button>
                     <button>Delete</button>
@@ -72,7 +80,7 @@ class StudentsCreateUpdate extends Component {
     }
 }
 
-const mapStateToProps = ({ student, school }, { id }) => ({ student, school, id });
+const mapStateToProps = ({ student, school, schools }, { id }) => ({ student, school, id, schools });
 const mapDispatchToProps = { fetchStudent, fetchSchool }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreateUpdate);
