@@ -1,7 +1,7 @@
-import { LOAD_INITIAL_STUDENTS } from '../constants';
+import { LOAD_INITIAL_STUDENTS, FETCH_STUDENT } from '../constants';
 
 
-const studentsReducer = (state = [], action) => {
+export const studentsReducer = (state = [], action) => {
     switch(action.type) {
         case LOAD_INITIAL_STUDENTS:
             return action.students;
@@ -10,4 +10,11 @@ const studentsReducer = (state = [], action) => {
     }
 }
 
-export default studentsReducer;
+export const studentReducer = (state = {}, action) => {
+    switch(action.type) {
+        case FETCH_STUDENT:
+            return action.student;
+        default:
+            return state;
+    }
+}

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchSchool, createSchool, updateSchool, destroySchool } from '../store/actions';
+import { fetchSchool, createSchool, updateSchool, destroySchool } from '../store/actions/schools';
 
 class SchoolsCreateUpdate extends Component {
     constructor(props) {
@@ -54,34 +54,37 @@ class SchoolsCreateUpdate extends Component {
         const { name, description, address } = this.state;
         return(
             <Fragment>
-                <h2>Schools</h2>
-                <h5>{ school.name }</h5>
+                <h2>School</h2>
+                {
+                    id !== 'create' ? <h5>{ school.name }</h5> : null
+                }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='name'>Name: </label>
                         <input onChange={ handleNameChange } value={ name } id='name'></input>
-                    <br/>
+                        <br/>
                     <label htmlFor='description'>Description: </label>
                         <input onChange={ handleDescriptionChange } value={ description } id='description'></input>
-                    <br/>
+                        <br/>
                     <label htmlFor='address'>Address: </label>
                         <input onChange={ handleAddressChange } value={ address }></input>
-                    <br/>
+                        <br/>
                     <button disabled={ !name || !description || !address }>Save</button>
                 </form>
-                <button onClick={ () => destroySchool(school, history) }>Delete</button>
                 {
-                    id !== 'create' ? <button onClick={ (e) => onCreate(e) }>Add new student</button> : null 
+                    id !== 'create' ? (
+                    <Fragment>
+                        <br/>
+                        <button onClick={ () => destroySchool(school, history) }>Delete</button>
+                        <button onClick={ (e) => onCreate(e) }>Add new student</button> 
+                    </Fragment>
+                    ): null 
                 }
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = ({ school }, { id, history }) => ({ 
-    school,
-    id,
-    history 
-});
+const mapStateToProps = ({ school }, { id, history }) => ({ school, id, history });
 
 const mapDispatchToProps = { fetchSchool, createSchool, updateSchool, destroySchool };
 

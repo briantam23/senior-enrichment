@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, HashRouter as Router } from 'react-router-dom';
-import { loadInitialSchools, loadInitialStudents } from '../store/actions';
+import { loadInitialSchools } from '../store/actions/schools';
+import { loadInitialStudents } from '../store/actions/students';
 import Nav from './Nav';
 import Schools from './Schools';
 import Students from './Students';
@@ -26,7 +27,7 @@ class App extends Component {
                         <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
                         <Route exact path='/students' render={ () => <Students /> } />
                         <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
-                        <Route path='/students/create' render={ () => <StudentsCreateUpdate /> } />
+                        <Route path={ '/students/:id' || '/students/create' } render={ ({ match, history }) => <StudentsCreateUpdate id={ match.params.id } history={ history } /> } />
                     </Fragment>
                 </Router>
             </Fragment>

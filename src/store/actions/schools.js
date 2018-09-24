@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL, LOAD_INITIAL_STUDENTS } from './constants';
+import { LOAD_INITIAL_SCHOOLS, FETCH_SCHOOL, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
 
 const _loadInitialSchools = schools => ({
     type: LOAD_INITIAL_SCHOOLS,
@@ -12,6 +12,7 @@ export const loadInitialSchools = () => (
             .then(schools => dispatch(_loadInitialSchools(schools)))
     )
 )
+
 const _fetchSchool = school => ({
     type: FETCH_SCHOOL,
     school
@@ -23,6 +24,7 @@ export const fetchSchool = id => (
             .then(school => dispatch(_fetchSchool(school)))
     )
 )
+
 const _createSchool = school => ({
     type: CREATE_SCHOOL,
     schools: school
@@ -35,6 +37,7 @@ export const createSchool = (school, history) => (
             .then(() => history.push('/schools'))
     )
 )
+
 const _updateSchool = school => ({
     type: UPDATE_SCHOOL,
     schools: school
@@ -58,18 +61,3 @@ export const destroySchool = (school, history) => (
             .then(() => history.push('/schools'))
     )
 )
-
-
-
-const _loadInitialStudents = students => ({
-    type: LOAD_INITIAL_STUDENTS,
-    students
-})
-export const loadInitialStudents = () => (
-    dispatch => {
-        return axios.get('/api/students')
-            .then(res => res.data)
-            .then(students => dispatch(_loadInitialStudents(students)))
-    }
-)
-
