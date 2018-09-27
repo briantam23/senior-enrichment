@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 const Nav = ({ schools, students }) => {
     return(
         <ul>
-            <li><Link to='/schools'>Schools ({ schools.length })</Link></li>
-            <li><Link to='/students'>Students ({ students.length })</Link></li>
+            <li><Link to='/schools'>Schools</Link> ({ schools.length })</li>
+            <li><Link to='/students'>Students</Link> ({ students.length })</li>
         </ul>
     )
 }

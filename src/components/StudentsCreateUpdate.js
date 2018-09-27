@@ -12,10 +12,7 @@ class StudentsCreateUpdate extends Component {
             GPA: 3.0,
             schoolName: ''
         }
-        this.handleFNameChange = this.handleFNameChange.bind(this);
-        this.handleLNameChange = this.handleLNameChange.bind(this);
-        this.handleGPAChange = this.handleGPAChange.bind(this);
-        this.handleSchoolChange = this.handleSchoolChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         const { fetchStudent, id, fetchSchool, student } = this.props;
         id !== 'create' ? fetchStudent(id) : null  
@@ -29,17 +26,8 @@ class StudentsCreateUpdate extends Component {
             })
         }
     }
-    handleFNameChange(e) {
-        this.setState({ firstName: e.target.value });
-    }
-    handleLNameChange(e) {
-        this.setState({ lastName: e.target.value });
-    }
-    handleGPAChange(e) {
-        this.setState({ GPA: e.target.value });
-    }
-    handleSchoolChange(e) {
-        this.setState({ schoolName: e.target.value })   //also set schoolId
+    handleChange(e) {
+        this.setState({ [e.target.id]: e.target.value });
     }
     onSubmit(e) {
         const { updateStudent, id, history, createStudent } = this.props;
@@ -51,28 +39,29 @@ class StudentsCreateUpdate extends Component {
     render() {
         const { student, schools, destroyStudent, history } = this.props;
         const { firstName, lastName, GPA, schoolName } = this.state;
-        const { handleFNameChange, handleLNameChange, handleGPAChange, handleSchoolChange, onSubmit } = this;
+        const { handleChange, onSubmit } = this;
         return(
             <Fragment>
                 <h2>Student</h2>
                 <h5>{ student.name }</h5>
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
-                        <input onChange={ handleFNameChange } value={ firstName } id='firstName'></input>
+                        <input onChange={ handleChange } value={ firstName } id='firstName'></input>
                         <br/>
                     <label htmlFor='lastName'>Last Name: </label>
-                        <input onChange={ handleLNameChange } value={ lastName } id='lastName'></input>
+                        <input onChange={ handleChange } value={ lastName } id='lastName'></input>
                         <br/>
                     <label htmlFor='GPA'>GPA: </label>
-                        <input onChange={ handleGPAChange } value={ GPA } id='GPA'></input>
+                        <input onChange={ handleChange } value={ GPA } id='GPA'></input>
                         <br/>
                     <label htmlFor='schoolName'>School: </label>
-                        <select onChange={ handleSchoolChange } value={ schoolName }  id='schoolName'>
+                        <select onChange={ handleChange } value={ schoolName }  id='schoolName'>
                             <option>--None--</option>
                         {
-                            schools.map(school => <option key={ school.id }>
-                                { school.name }
-                            </option>)
+                            schools.map(school => (
+                                <option key={ school.id }>
+                                    { school.name }
+                                </option>))
                         }
                         </select>
                         <br/>
@@ -84,7 +73,16 @@ class StudentsCreateUpdate extends Component {
     }
 }
 
-const mapStateToProps = ({ student, school, schools }, { id, history }) => ({ student, school, id, schools, history });
+const mapStateToProps = ({ student, school, schools }, { id, history }) => { 
+    //const student = students.find(_student => _student.id === id); ///////////////////////
+    return({
+        student, 
+        school, 
+        id, 
+        schools, 
+        history 
+    })
+}
 const mapDispatchToProps = { fetchStudent, fetchSchool, createStudent, updateStudent, destroyStudent }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreateUpdate);
