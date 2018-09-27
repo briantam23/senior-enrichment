@@ -13,6 +13,8 @@ export const loadInitialSchools = () => (
     )
 )
 
+////////////////////////////////////////////
+
 const _fetchSchool = school => ({
     type: FETCH_SCHOOL,
     school
@@ -27,6 +29,8 @@ export const fetchSchool = id => (
             .then(school => dispatch(_fetchSchool(school)))
     )
 )
+
+////////////////////////////////////////////
 
 const _createSchool = school => ({
     type: CREATE_SCHOOL,

@@ -75,7 +75,9 @@ class SchoolsCreateUpdate extends Component {
                     <Fragment>
                         <br/>
                         <button onClick={ () => destroySchool(school, history) }>Delete</button>
-                        <button onClick={ (e) => onCreate(e) }>Add new student</button> 
+                        <button onClick={ (e) => onCreate(e) }>Add new student</button>
+                        <br/>
+                         
                     </Fragment>
                     ): null 
                 }

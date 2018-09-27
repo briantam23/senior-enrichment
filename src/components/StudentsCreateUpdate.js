@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchStudent } from '../store/actions/students';
+import { fetchStudent, createStudent, updateStudent, destroyStudent } from '../store/actions/students';
 import { fetchSchool } from '../store/actions/schools';
 
 class StudentsCreateUpdate extends Component {
@@ -22,7 +22,7 @@ class StudentsCreateUpdate extends Component {
     }
     componentDidUpdate(prevProps) {         //won't clear school after selecting student w/ school
         const { student, school } = this.props;
-        console.log(school)
+        //console.log(school)
         if(prevProps !== this.props) {
             this.setState({ 
                 firstName: student.firstName, lastName: student.lastName, GPA: student.GPA , schoolName: school.name 
@@ -39,13 +39,17 @@ class StudentsCreateUpdate extends Component {
         this.setState({ GPA: e.target.value });
     }
     handleSchoolChange(e) {
-
+        this.setState({ schoolName: e.target.value })   //also set schoolId
     }
     onSubmit(e) {
-
+        const { updateStudent, id, history, createStudent } = this.props;
+        e.preventDefault();
+        id !== 'create'
+        ? updateStudent({ ...this.state, id }, history)
+        : createStudent(this.state, history)
     }
     render() {
-        const { student, schools } = this.props;
+        const { student, schools, destroyStudent, history } = this.props;
         const { firstName, lastName, GPA, schoolName } = this.state;
         const { handleFNameChange, handleLNameChange, handleGPAChange, handleSchoolChange, onSubmit } = this;
         return(
@@ -73,14 +77,14 @@ class StudentsCreateUpdate extends Component {
                         </select>
                         <br/>
                     <button disabled={ !firstName || !lastName || !GPA }>Save</button>
-                    <button>Delete</button>
                 </form>
+                <button onClick={ () => destroyStudent(student, history) }>Delete</button>
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = ({ student, school, schools }, { id }) => ({ student, school, id, schools });
-const mapDispatchToProps = { fetchStudent, fetchSchool }
+const mapStateToProps = ({ student, school, schools }, { id, history }) => ({ student, school, id, schools, history });
+const mapDispatchToProps = { fetchStudent, fetchSchool, createStudent, updateStudent, destroyStudent }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreateUpdate);
