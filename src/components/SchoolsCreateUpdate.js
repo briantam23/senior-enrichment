@@ -61,7 +61,7 @@ class SchoolsCreateUpdate extends Component {
                         <input onChange={ handleChange } value={ description } id='description'></input>
                         <br/>
                     <label htmlFor='address'>Address: </label>
-                        <input onChange={ handleChange } value={ address }></input>
+                        <input onChange={ handleChange } value={ address } id='address'></input>
                         <br/>
                     <button disabled={ !name || !description || !address }>Save</button>
                 </form>
@@ -108,13 +108,7 @@ const mapStateToProps = ({ students, schools }, { id, history }) => {
     const enrolledStudents = students.filter(student => student.schoolId === id*1);
     const unenrolledStudents = students.filter(student => student.schoolId !== id*1);
     const school = schools.find(school => school.id === id*1);
-    return({
-        school, 
-        id, 
-        history, 
-        enrolledStudents,
-        unenrolledStudents 
-    })
+    return({ school, id, history, enrolledStudents, unenrolledStudents });
 }
 
 const mapDispatchToProps = { createSchool, updateSchool, destroySchool, updateStudent, destroyStudent };

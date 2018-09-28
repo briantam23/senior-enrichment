@@ -15,11 +15,11 @@ class StudentsCreateUpdate extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
     componentDidUpdate(prevProps) {         //won't clear school after selecting student w/ school
-        const { student, school } = this.props;
-        console.log(school)
+        const { firstName, lastName, GPA } = this.props.student;
+        //const { name } = this.props.school;
         if(prevProps.student !== this.props.student) {   
             this.setState({ 
-                firstName: student.firstName, lastName: student.lastName, GPA: student.GPA , schoolName: school.name 
+                firstName, lastName, GPA//, schoolName: this.props.school.name 
             })
         }
     }
@@ -77,13 +77,7 @@ const mapStateToProps = ({ schools, students }, { id, history }) => {
         student = students.find(student => student.id === id*1); 
         school = schools.find(school => school.id === student.schoolId);
     }
-    return({
-        student, 
-        school, 
-        id, 
-        schools, 
-        history 
-    })
+    return({ student, school, id, schools, history });
 }
 const mapDispatchToProps = { createStudent, updateStudent, destroyStudent }
 

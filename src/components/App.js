@@ -35,9 +35,7 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ students })=> ({
-    students
-})
+const mapStateToProps = ({ students })=> ({ students });
 
 const mapDispatchToProps = { loadInitialSchools, loadInitialStudents };
 

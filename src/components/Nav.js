@@ -12,9 +12,6 @@ const Nav = ({ schools, students }) => {
     )
 }
 
-const mapStateToProps = ({ schools, students }) => ({
-    schools,
-    students
-})
+const mapStateToProps = ({ schools, students }) => ({ schools, students });
 
 export default connect(mapStateToProps)(Nav);
