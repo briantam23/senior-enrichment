@@ -1,26 +1,23 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchStudent, createStudent, updateStudent, destroyStudent } from '../store/actions/students';
-import { fetchSchool } from '../store/actions/schools';
+import { createStudent, updateStudent, destroyStudent } from '../store/actions/students';
 
 class StudentsCreateUpdate extends Component {
-    constructor(props) {
-        super(props);
+    constructor({ student }) {
+        super();
         this.state = {
-            firstName: '',
-            lastName: '',
+            firstName: student ? student.firstName : '',
+            lastName: student ? student.lastName : '',
             GPA: 3.0,
             schoolName: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        const { fetchStudent, id, fetchSchool, student } = this.props;
-        id !== 'create' ? fetchStudent(id) : null  
     }
     componentDidUpdate(prevProps) {         //won't clear school after selecting student w/ school
         const { student, school } = this.props;
-        //console.log(school)
-        if(prevProps !== this.props) {
+        console.log(school)
+        if(prevProps.student !== this.props.student) {   
             this.setState({ 
                 firstName: student.firstName, lastName: student.lastName, GPA: student.GPA , schoolName: school.name 
             })
@@ -43,7 +40,7 @@ class StudentsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>Student</h2>
-                <h5>{ student.name }</h5>
+                { student ? <h5>{ student.name }</h5> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
                         <input onChange={ handleChange } value={ firstName } id='firstName'></input>
@@ -73,8 +70,13 @@ class StudentsCreateUpdate extends Component {
     }
 }
 
-const mapStateToProps = ({ student, school, schools }, { id, history }) => { 
-    //const student = students.find(_student => _student.id === id); ///////////////////////
+const mapStateToProps = ({ schools, students }, { id, history }) => {
+    let student = null; 
+    let school = null;
+    if(id !== 'create') {
+        student = students.find(student => student.id === id*1); 
+        school = schools.find(school => school.id === student.schoolId);
+    }
     return({
         student, 
         school, 
@@ -83,6 +85,6 @@ const mapStateToProps = ({ student, school, schools }, { id, history }) => {
         history 
     })
 }
-const mapDispatchToProps = { fetchStudent, fetchSchool, createStudent, updateStudent, destroyStudent }
+const mapDispatchToProps = { createStudent, updateStudent, destroyStudent }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsCreateUpdate);
