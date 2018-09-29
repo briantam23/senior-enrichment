@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createSchool, updateSchool, destroySchool } from '../store/actions/schools';
-import { updateStudent, destroyStudent } from '../store/actions/students';
-import { enrolled, unenrolled, findSchoolByURL } from '../utils';
+import { updateStudent } from '../store/actions/students';
+import { enrolled, unenrolled, findSchoolByURL, findStudentByName } from '../utils';
 
 class SchoolsCreateUpdate extends Component {
     constructor({ school }) {
@@ -10,19 +10,17 @@ class SchoolsCreateUpdate extends Component {
         this.state = {
             name: school ? school.name : '',
             description: school ? school.description : '',
-            address: school ? school.address : ''
+            address: school ? school.address : '',
+            studentName: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSchoolSubmit = this.onSchoolSubmit.bind(this);
-        this.onCreate = this.onCreate.bind(this);
         this.onStudentSubmit = this.onStudentSubmit.bind(this);
     }
     componentDidUpdate(prevProps) {
         const { school, id } = this.props;
-        if(prevProps !== this.props) { // why not !prevProps.school && this.props.school
-            id !== 'create' 
-            ? this.setState(school)
-            : this.setState({ name: '', description: '', address: '' })
+        if(prevProps !== this.props) {
+            id !== 'create' ? this.setState({ ...school, studentName: '' }) : null
         }
     }
     handleChange(e) {
@@ -35,20 +33,17 @@ class SchoolsCreateUpdate extends Component {
         ? updateSchool({ ...this.state, id }, history)
         : createSchool(this.state, history)
     }
-    onCreate(e) {
-        e.preventDefault();
-        this.props.history.push('/students/create');
-    }
     onStudentSubmit(e) {
-        const { updateStudent, enrolledStudents } = this.props;
+        const { updateStudent, unenrolledStudents, id, history } = this.props;
+        const { studentName } = this.state;
         e.preventDefault();
-        const selectedStudent = enrolledStudents.find(student => student.name === e.target.value)
-        console.log(selectedStudent) //find out how to get value from selection
+        const selectedStudent = findStudentByName(unenrolledStudents, studentName);
+        updateStudent({ ...selectedStudent, schoolId: id*1 }, history, id);
     }
     render() {
-        const { school, id, destroySchool, history, enrolledStudents, destroyStudent, unenrolledStudents } = this.props;
-        const { handleChange, onSchoolSubmit, onCreate, onStudentSubmit } = this;
-        const { name, description, address } = this.state;
+        const { school, id, destroySchool, history, enrolledStudents, unenrolledStudents, updateStudent, students } = this.props;
+        const { handleChange, onSchoolSubmit, onStudentSubmit } = this;
+        const { name, description, address, studentName } = this.state;
         return(
             <Fragment>
                 <h2>School</h2>
@@ -71,33 +66,35 @@ class SchoolsCreateUpdate extends Component {
                     id !== 'create' ? (
                     <Fragment>
                         <br/>
-                        <button onClick={ () => destroySchool(school, history) }>Delete</button>
-                        <button onClick={ (e) => onCreate(e) }>Add new student</button>
+                        <button onClick={ () => destroySchool(school, history, students, id) }>Delete</button>
+                        <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                         <br/>
                         <br/>
-                        <h4>Add new student</h4>
+                        <h4>Enroll existing student</h4>
                         <ul>
                         {
                             enrolledStudents.map(enrolledStudent => (
                                 <li key={ enrolledStudent.id }>
                                     { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
-                                    <button onClick={ () => destroyStudent(enrolledStudent, history) }>X</button>
+                                    <button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, id) }>X</button>
                                 </li>))
                         }
                         </ul>
                         <form onSubmit={ onStudentSubmit }>
-                            <select>
+                            <select onChange={ handleChange } value={ studentName } id='studentName'>
                                 <option>--Select Student--</option>
                             {
                                 unenrolledStudents.map(unenrolledStudent => (
                                     <option key={ unenrolledStudent.id }>
-                                        { unenrolledStudent.lastName + ' ' + unenrolledStudent.firstName }
+                                        { unenrolledStudent.lastName + ', ' + unenrolledStudent.firstName }
                                     </option>
                                 ))
                             }
                             </select>
-                            <button>+</button>
+                            <button disabled={ !studentName }>+</button>
                         </form>
+                        <br/>
+                        <button onClick={ () => history.goBack() }>Back</button>
                     </Fragment>
                     ): null 
                 }
@@ -110,10 +107,10 @@ const mapStateToProps = ({ students, schools }, { id, history }) => {
     const enrolledStudents = enrolled(students, id);
     const unenrolledStudents = unenrolled(students, id);
     const school = findSchoolByURL(schools, id);
-    return({ school, id, history, enrolledStudents, unenrolledStudents });
+    return({ school, id, history, enrolledStudents, unenrolledStudents, students });
 }
 
-const mapDispatchToProps = { createSchool, updateSchool, destroySchool, updateStudent, destroyStudent };
+const mapDispatchToProps = { createSchool, updateSchool, destroySchool, updateStudent };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SchoolsCreateUpdate);
 

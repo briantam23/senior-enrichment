@@ -1,5 +1,7 @@
 import axios from "axios";
-import { LOAD_INITIAL_SCHOOLS, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } from '../constants';
+import { LOAD_INITIAL_SCHOOLS, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL, UPDATE_STUDENT } from '../constants';
+import { updateStudent } from './students';
+import { findStudentsBySchool } from '../../utils';
 
 const _loadInitialSchools = schools => ({
     type: LOAD_INITIAL_SCHOOLS,
@@ -42,10 +44,14 @@ const _destroySchool = school => ({
     type: DESTROY_SCHOOL,
     schools: school
 })
-export const destroySchool = (school, history) => (
-    dispatch => (
+export const destroySchool = (school, history, students, id) => {
+    students = findStudentsBySchool(students, school);
+    return dispatch => (
         axios.delete(`/api/schools/${school.id}`)
-            .then(() => dispatch(_destroySchool(school)))
+            .then(() => dispatch(_destroySchool(school))) 
+            .then(() => students.forEach(student => (
+                dispatch(updateStudent({ ...student, schoolId: null } , history, id)))
+            ))
             .then(() => history.push('/schools'))
     )
-)
+}

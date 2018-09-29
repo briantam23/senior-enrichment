@@ -21,6 +21,8 @@ const Schools = ({ schools, history, students }) => {
             }
             </ul>
             <button onClick={ (e) => handleClick(e) }>Add new school</button>
+            <br/>
+            <button onClick={ () => history.goBack() }>Back</button>
         </Fragment>
     )
 }

@@ -31,12 +31,12 @@ const _updateStudent = student => ({
     type: UPDATE_STUDENT,
     students: student
 })
-export const updateStudent = (student, history) => (
+export const updateStudent = (student, history, id) => (
     dispatch => (
         axios.put(`/api/students/${student.id}`, student)
             .then(res => res.data)
             .then(_student => dispatch(_updateStudent(_student)))
-            .then(() => history.push('/students'))
+            .then(() => !id ? history.push('/students') : null)
     )
 )
 

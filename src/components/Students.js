@@ -19,6 +19,8 @@ const Students = ({ students, schools, history }) => {
             }
             </ul>
             <button onClick={ () => history.push('/students/create') }>Add new student</button>
+            <br/>
+            <button onClick={ () => history.goBack() }>Back</button>
         </Fragment>
     )
 }

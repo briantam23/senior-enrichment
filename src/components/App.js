@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, HashRouter as Router } from 'react-router-dom';
+import { Route, HashRouter as Router, Switch } from 'react-router-dom';
 import { loadInitialSchools } from '../store/actions/schools';
 import { loadInitialStudents } from '../store/actions/students';
 import Nav from './Nav';
@@ -24,10 +24,13 @@ class App extends Component {
                 <Router>
                     <Fragment>
                         <Nav />
-                        <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
-                        <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
-                        <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
-                        <Route path={ '/students/:id' || '/students/create' } render={ ({ match, history }) => <StudentsCreateUpdate id={ match.params.id } history={ history } /> } />
+                        <Switch>
+                            <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
+                            <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
+                            <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
+                            <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
+                            <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
+                        </Switch>
                     </Fragment>
                 </Router>
             </Fragment>

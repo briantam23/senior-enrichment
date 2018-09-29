@@ -1,44 +1,41 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createStudent, updateStudent, destroyStudent } from '../store/actions/students';
-import { findStudentByURL, findSchoolByStudent } from '../utils';
+import { findStudentByURL, findSchoolByStudent, findSchoolByName, findSchoolByURL } from '../utils';
 
 class StudentsCreateUpdate extends Component {
-    constructor({ student }) {
+    constructor({ student, schoolName, schoolId }) {
         super();
         this.state = {
             firstName: student ? student.firstName : '',
             lastName: student ? student.lastName : '',
             GPA: 3.0,
-            schoolName: ''
+            schoolName: (student && student.schoolId) || schoolId ? schoolName : ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    componentDidUpdate(prevProps) {         //won't clear school after selecting student w/ school
-        const { firstName, lastName, GPA } = this.props.student;
-        //const { name } = this.props.school;
-        if(prevProps.student !== this.props.student) {   
-            this.setState({ 
-                firstName, lastName, GPA//, schoolName: this.props.school.name 
-            })
-        }
+    componentDidUpdate(prevProps) {
+        const { student } = this.props;
+        if(prevProps !== this.props) this.setState({ student });
     }
     handleChange(e) {
         this.setState({ [e.target.id]: e.target.value });
     }
     onSubmit(e) {
-        const { updateStudent, id, history, createStudent } = this.props;
+        const { updateStudent, studentId, history, createStudent, schools } = this.props;
+        const { firstName, lastName, GPA, schoolName } = this.state;
+        let selectedSchool = null;
+        if(schoolName) selectedSchool = findSchoolByName(schools, schoolName);
         e.preventDefault();
-        id !== 'create'
-        ? updateStudent({ ...this.state, id }, history)
-        : createStudent(this.state, history)
+        studentId !== 'create'
+        ? updateStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null, id: studentId }, history)
+        : createStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null }, history)
     }
     render() {
         const { student, schools, destroyStudent, history } = this.props;
         const { firstName, lastName, GPA, schoolName } = this.state;
         const { handleChange, onSubmit } = this;
-        console.log(student, this.props.school)
         return(
             <Fragment>
                 <h2>Student</h2>
@@ -66,29 +63,23 @@ class StudentsCreateUpdate extends Component {
                         <br/>
                     <button disabled={ !firstName || !lastName || !GPA }>Save</button>
                 </form>
-                <button onClick={ () => destroyStudent(student, history) }>Delete</button>
+                    <button onClick={ () => destroyStudent(student, history) }>Delete</button>
+                <br/>
+                <button onClick={ () => history.goBack() }>Back</button>
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = ({ schools, students }, { id, history }) => {
+const mapStateToProps = ({ schools, students }, { studentId, history, schoolId }) => { 
     let student = null; 
-    let school = null;
-    if(id !== 'create') {
-        student = findStudentByURL(students, id);
-        //school = findSchoolByStudent(schools, student); 
-        /* findStudentByURL(students, id)
-            .then(_student => {
-                student = _student
-                console.log(student)
-                //return student
-                return({ student, school, id, schools, history });
-            })
-            //.then(student => findSchoolByStudent(schools, student))
-            //.then(_school => school = _school) */
+    let schoolName = null;
+    if(studentId !== 'create') {                                // if(editForm) pre-populate info
+        student = findStudentByURL(students, studentId);
+        if(student && student.schoolId) schoolName = findSchoolByStudent(schools, student).name;
     }
-    return({ student, school, id, schools, history });
+    if(schoolId) schoolName = findSchoolByURL(schools, schoolId).name;  // if(coming from school page) pre-populate info
+    return({ student, studentId, schools, history, schoolId, schoolName });
 }
 const mapDispatchToProps = { createStudent, updateStudent, destroyStudent }
 
