@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Students = ({ students, schools, history }) => {
     return(
         <Fragment>
+            <h2>Students</h2>
             <ul>
             {
                 students.map(student => (

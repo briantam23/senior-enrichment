@@ -8,23 +8,30 @@ import Schools from './Schools';
 import Students from './Students';
 import SchoolsCreateUpdate from './SchoolsCreateUpdate';
 import StudentsCreateUpdate from './StudentsCreateUpdate';
+import Home from './Home';
 
 class App extends Component {
+    constructor() {
+        super();
+        this.state = { loading: true };
+    }
     componentDidMount() {
         const { loadInitialSchools, loadInitialStudents } = this.props;
-        loadInitialSchools();
-        loadInitialStudents();
+        loadInitialSchools()
+            .then(() => loadInitialStudents())
+            .then(() =>this.setState({ loading: false }))
     }
     render() {
         const { students } = this.props;
-        if(!students[0]) return <h1>Loading...</h1> //what if there are no students
+        if(this.state.loading) return <h1>Loading...</h1>
         return(
             <Fragment>
                 <h1>Acme School</h1>
                 <Router>
                     <Fragment>
-                        <Nav />
+                        <Route render={ ({ location }) => <Nav pathname={ location.pathname } /> } />
                         <Switch>
+                            <Route exact path='/' render={ ({ history }) => <Home history={ history } /> } />
                             <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
                             <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
                             

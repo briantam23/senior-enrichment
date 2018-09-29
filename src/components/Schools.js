@@ -9,6 +9,7 @@ const Schools = ({ schools, history, students }) => {
     }
     return(
         <Fragment>
+            <h2>Schools</h2>
             <ul>
             {
                 schools.map(school => <li key={ school.id }>

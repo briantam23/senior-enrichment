@@ -48,3 +48,9 @@ export const sortStudents = (a, b) => {
     }
     return 0;
 }
+
+export const selected = (_pathname, pathname, startsWith = false) => {
+    const style = {};
+    if(_pathname === pathname || (pathname.indexOf(_pathname) === 0 && startsWith)) style.fontWeight = 'bold';
+    return style;
+}
