@@ -8,14 +8,14 @@
     margin: 0;
     font-family: Georgia, "Times new Roman", serif;
     height: 100%;
-    background: rgb(144, 184, 236);
+    background: lightblue;
     color: black;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
   }
-  
+
   .App {
     display: flex;
     height: 100%;
@@ -26,3 +26,22 @@
     color: white;
     padding: 1em;
   }
+
+  .nav {
+    display: flex;
+    flex-flow: row wrap;
+    /* This aligns items to the end line on main-axis */
+    justify-content: flex-start;
+    list-style: none;
+    margin: 0; 
+    
+    background: deepskyblue;
+  }
+  
+  .nav li {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+  }
+  

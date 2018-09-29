@@ -27,6 +27,7 @@ class App extends Component {
         if(this.state.loading) return <ReactLoading type='spokes' color='yellow' />
         return(
             <Fragment>
+                <img src='../../public/school.jpeg' alt='Picture of School' />
                 <h1>Acme School</h1>
                 <Router>
                     <Fragment>
