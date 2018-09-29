@@ -11,7 +11,7 @@ const Students = ({ students, schools, history }) => {
                     <li key={ student.id }>
                         <Link to={`/students/${student.id}`}>{ student.lastName + ', ' + student.firstName }</Link>
                     {
-                        student.schoolId 
+                        student.schoolId && schools
                         ? ' School: ' + schools.find(school => school.id === student.schoolId).name
                         : null
                     }

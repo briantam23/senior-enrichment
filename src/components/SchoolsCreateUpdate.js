@@ -47,20 +47,26 @@ class SchoolsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>School</h2>
-                {
-                    school ? <h5>{ school.name }</h5> : null
-                }
+            {
+                school ? <h5>{ school.name }</h5> : null
+            }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
-                        <input onChange={ handleChange } value={ name } id='name'></input>
+                        <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus></input>
                         <br/>
                     <label htmlFor='description'>Description: </label>
-                        <input onChange={ handleChange } value={ description } id='description'></input>
+                        <input onChange={ handleChange } value={ description } id='description' placeholder='Description'></input>
                         <br/>
                     <label htmlFor='address'>Address: </label>
-                        <input onChange={ handleChange } value={ address } id='address'></input>
+                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address'></input>
                         <br/>
-                    <button disabled={ !name || !description || !address }>Save</button>
+                {
+                    school ? (
+                        <button disabled={ (!name || !description || !address) || 
+                            (name === school.name && description === school.description && address === school.address) }>Save</button>
+                    ) : <button disabled={ !name || !description || !address }>Save</button>
+                }
+                    
                 </form>
                 {
                     id !== 'create' ? (
@@ -70,7 +76,6 @@ class SchoolsCreateUpdate extends Component {
                         <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                         <br/>
                         <br/>
-                        <h4>Enroll existing student</h4>
                         <ul>
                         {
                             enrolledStudents.map(enrolledStudent => (
@@ -80,6 +85,7 @@ class SchoolsCreateUpdate extends Component {
                                 </li>))
                         }
                         </ul>
+                        <h4>Enroll existing student</h4>
                         <form onSubmit={ onStudentSubmit }>
                             <select onChange={ handleChange } value={ studentName } id='studentName'>
                                 <option>--Select Student--</option>

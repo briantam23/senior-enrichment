@@ -9,7 +9,7 @@ class StudentsCreateUpdate extends Component {
         this.state = {
             firstName: student ? student.firstName : '',
             lastName: student ? student.lastName : '',
-            GPA: 3.0,
+            GPA: student ? student.GPA : 3.0,
             schoolName: (student && student.schoolId) || schoolId ? schoolName : ''
         }
         this.handleChange = this.handleChange.bind(this);
@@ -28,9 +28,9 @@ class StudentsCreateUpdate extends Component {
         let selectedSchool = null;
         if(schoolName) selectedSchool = findSchoolByName(schools, schoolName);
         e.preventDefault();
-        studentId !== 'create'
-        ? updateStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null, id: studentId }, history)
-        : createStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null }, history)
+        studentId === 'create' || !studentId
+        ? createStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null }, history)
+        : updateStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null, id: studentId }, history)
     }
     render() {
         const { student, schools, destroyStudent, history } = this.props;
@@ -42,16 +42,16 @@ class StudentsCreateUpdate extends Component {
                 { student ? <h5>{ student.name }</h5> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
-                        <input onChange={ handleChange } value={ firstName } id='firstName'></input>
+                        <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus></input>
                         <br/>
                     <label htmlFor='lastName'>Last Name: </label>
-                        <input onChange={ handleChange } value={ lastName } id='lastName'></input>
+                        <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name'></input>
                         <br/>
                     <label htmlFor='GPA'>GPA: </label>
-                        <input onChange={ handleChange } value={ GPA } id='GPA'></input>
+                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA'></input>
                         <br/>
                     <label htmlFor='schoolName'>School: </label>
-                        <select onChange={ handleChange } value={ schoolName }  id='schoolName'>
+                        <select onChange={ handleChange } value={ schoolName } id='schoolName'>
                             <option>--None--</option>
                         {
                             schools.map(school => (
@@ -61,7 +61,13 @@ class StudentsCreateUpdate extends Component {
                         }
                         </select>
                         <br/>
-                    <button disabled={ !firstName || !lastName || !GPA }>Save</button>
+                    {
+                        student ? (
+                            <button disabled={ (!firstName || !lastName || !GPA) || 
+                                (firstName === student.firstName && lastName === student.lastName 
+                                && GPA === student.GPA && schoolName === this.props.schoolName) }>Save</button>
+                        ) : <button disabled={ (!firstName || !lastName || !GPA) }>Save</button>
+                    }
                 </form>
                     <button onClick={ () => destroyStudent(student, history) }>Delete</button>
                 <br/>

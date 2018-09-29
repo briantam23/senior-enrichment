@@ -27,3 +27,24 @@ export const findSchoolByURL = (schools, id) => (
 export const findSchoolByStudent = (schools, student) => (
     schools.find(school => school.id === student.schoolId)
 )
+
+export const sortSchools = (a, b) => {
+    const x = a.name.toLowerCase();
+    const y = b.name.toLowerCase();
+    if(x < y) return -1;
+    if(x > y) return 1;
+    return 0;
+}
+export const sortStudents = (a, b) => {
+    const x = a.lastName.toLowerCase();
+    const y = b.lastName.toLowerCase();
+    const z = a.firstName.toLowerCase();
+    const zz = b.firstName.toLowerCase();
+    if(x < y) return -1;
+    if(x > y) return 1;
+    if(x === y) {
+        if(z < zz) return -1;
+        if(z > zz) return 1;
+    }
+    return 0;
+}

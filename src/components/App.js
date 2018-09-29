@@ -27,9 +27,15 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
                             <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
-                            <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
-                            <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
-                            <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
+                            
+                            <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => 
+                                <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
+
+                            <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => 
+                                <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
+
+                            <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => 
+                                <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
                         </Switch>
                     </Fragment>
                 </Router>
