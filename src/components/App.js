@@ -25,7 +25,7 @@ class App extends Component {
                     <Fragment>
                         <Nav />
                         <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
-                        <Route exact path='/students' render={ () => <Students /> } />
+                        <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
                         <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
                         <Route path={ '/students/:id' || '/students/create' } render={ ({ match, history }) => <StudentsCreateUpdate id={ match.params.id } history={ history } /> } />
                     </Fragment>

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createSchool, updateSchool, destroySchool } from '../store/actions/schools';
 import { updateStudent, destroyStudent } from '../store/actions/students';
+import { enrolled, unenrolled, findSchoolByURL } from '../utils';
 
 class SchoolsCreateUpdate extends Component {
     constructor({ school }) {
@@ -12,7 +13,7 @@ class SchoolsCreateUpdate extends Component {
             address: school ? school.address : ''
         }
         this.handleChange = this.handleChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSchoolSubmit = this.onSchoolSubmit.bind(this);
         this.onCreate = this.onCreate.bind(this);
         this.onStudentSubmit = this.onStudentSubmit.bind(this);
     }
@@ -27,7 +28,7 @@ class SchoolsCreateUpdate extends Component {
     handleChange(e) {
         this.setState({ [e.target.id]: e.target.value });
     }
-    onSubmit(e) {
+    onSchoolSubmit(e) {
         e.preventDefault();
         const { id, history, createSchool, updateSchool } = this.props;
         id !== 'create' 
@@ -39,13 +40,14 @@ class SchoolsCreateUpdate extends Component {
         this.props.history.push('/students/create');
     }
     onStudentSubmit(e) {
-        const { updateStudent } = this.props;
+        const { updateStudent, enrolledStudents } = this.props;
         e.preventDefault();
-        
+        const selectedStudent = enrolledStudents.find(student => student.name === e.target.value)
+        console.log(selectedStudent) //find out how to get value from selection
     }
     render() {
         const { school, id, destroySchool, history, enrolledStudents, destroyStudent, unenrolledStudents } = this.props;
-        const { handleChange, onSubmit, onCreate, onStudentSubmit } = this;
+        const { handleChange, onSchoolSubmit, onCreate, onStudentSubmit } = this;
         const { name, description, address } = this.state;
         return(
             <Fragment>
@@ -53,7 +55,7 @@ class SchoolsCreateUpdate extends Component {
                 {
                     school ? <h5>{ school.name }</h5> : null
                 }
-                <form onSubmit={ onSubmit }>
+                <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
                         <input onChange={ handleChange } value={ name } id='name'></input>
                         <br/>
@@ -105,9 +107,9 @@ class SchoolsCreateUpdate extends Component {
 }
 
 const mapStateToProps = ({ students, schools }, { id, history }) => {
-    const enrolledStudents = students.filter(student => student.schoolId === id*1);
-    const unenrolledStudents = students.filter(student => student.schoolId !== id*1);
-    const school = schools.find(school => school.id === id*1);
+    const enrolledStudents = enrolled(students, id);
+    const unenrolledStudents = unenrolled(students, id);
+    const school = findSchoolByURL(schools, id);
     return({ school, id, history, enrolledStudents, unenrolledStudents });
 }
 

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createStudent, updateStudent, destroyStudent } from '../store/actions/students';
+import { findStudentByURL, findSchoolByStudent } from '../utils';
 
 class StudentsCreateUpdate extends Component {
     constructor({ student }) {
@@ -37,6 +38,7 @@ class StudentsCreateUpdate extends Component {
         const { student, schools, destroyStudent, history } = this.props;
         const { firstName, lastName, GPA, schoolName } = this.state;
         const { handleChange, onSubmit } = this;
+        console.log(student, this.props.school)
         return(
             <Fragment>
                 <h2>Student</h2>
@@ -74,8 +76,17 @@ const mapStateToProps = ({ schools, students }, { id, history }) => {
     let student = null; 
     let school = null;
     if(id !== 'create') {
-        student = students.find(student => student.id === id*1); 
-        school = schools.find(school => school.id === student.schoolId);
+        student = findStudentByURL(students, id);
+        //school = findSchoolByStudent(schools, student); 
+        /* findStudentByURL(students, id)
+            .then(_student => {
+                student = _student
+                console.log(student)
+                //return student
+                return({ student, school, id, schools, history });
+            })
+            //.then(student => findSchoolByStudent(schools, student))
+            //.then(_school => school = _school) */
     }
     return({ student, school, id, schools, history });
 }
