@@ -9,6 +9,7 @@ import Students from './Students';
 import SchoolsCreateUpdate from './SchoolsCreateUpdate';
 import StudentsCreateUpdate from './StudentsCreateUpdate';
 import Home from './Home';
+import ReactLoading from 'react-loading';
 
 class App extends Component {
     constructor() {
@@ -23,7 +24,7 @@ class App extends Component {
     }
     render() {
         const { students } = this.props;
-        if(this.state.loading) return <h1>Loading...</h1>
+        if(this.state.loading) return <ReactLoading type='spokes' color='yellow' />
         return(
             <Fragment>
                 <h1>Acme School</h1>

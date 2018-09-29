@@ -11,7 +11,8 @@ class SchoolsCreateUpdate extends Component {
             name: school ? school.name : '',
             description: school ? school.description : '',
             address: school ? school.address : '',
-            studentName: ''
+            studentName: '',
+            error: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSchoolSubmit = this.onSchoolSubmit.bind(this);
@@ -27,11 +28,14 @@ class SchoolsCreateUpdate extends Component {
         this.setState({ [e.target.id]: e.target.value });
     }
     onSchoolSubmit(e) {
-        e.preventDefault();
         const { id, history, createSchool, updateSchool } = this.props;
+        const { name, description, address } = this.state;
+        e.preventDefault();
         id !== 'create' 
-        ? updateSchool({ ...this.state, id }, history)
-        : createSchool(this.state, history)
+        ? updateSchool({ name, description, address, id }, history)
+            .catch(() => this.setState({ error: 'Error! Name and/or address taken. Please try again.' }))
+        : createSchool({ name, description, address }, history)
+            .catch(() => this.setState({ error: 'Error! Name and/or address taken. Please try again.'}))
     }
     onStudentSubmit(e) {
         const { updateStudent, unenrolledStudents, id, history } = this.props;
@@ -43,13 +47,12 @@ class SchoolsCreateUpdate extends Component {
     render() {
         const { school, id, destroySchool, history, enrolledStudents, unenrolledStudents, updateStudent, students } = this.props;
         const { handleChange, onSchoolSubmit, onStudentSubmit } = this;
-        const { name, description, address, studentName } = this.state;
+        const { name, description, address, studentName, error } = this.state;
         return(
             <Fragment>
                 <h2>School</h2>
-            {
-                school ? <h5>{ school.name }</h5> : null
-            }
+            { school ? <h5>{ school.name }</h5> : null }
+            { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
                         <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus></input>
@@ -62,11 +65,10 @@ class SchoolsCreateUpdate extends Component {
                         <br/>
                 {
                     school ? (
-                        <button disabled={ (!name || !description || !address) || 
+                        <button disabled={ (!name || !address) || 
                             (name === school.name && description === school.description && address === school.address) }>Save</button>
-                    ) : <button disabled={ !name || !description || !address }>Save</button>
-                }
-                    
+                    ) : <button disabled={ !name || !address }>Save</button>
+                }    
                 </form>
                 {
                     id !== 'create' ? (

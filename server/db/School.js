@@ -10,8 +10,7 @@ const School = conn.define('school', {
     description: {
         type: conn.Sequelize.STRING,
         allowNull: true,
-        unique: false,
-        validate: { notEmpty: false }
+        unique: false
     },
     address: {
         type: conn.Sequelize.STRING,
@@ -20,5 +19,13 @@ const School = conn.define('school', {
         validate: { notEmpty: true }
     }
 })
+
+const schoolHook = school => {
+    const { name } = school;
+    school.name = name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+School.beforeCreate((school, options) => schoolHook(school));
+School.beforeUpdate((school, option) => schoolHook(school))
 
 module.exports = School;

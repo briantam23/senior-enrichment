@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Schools = ({ schools, history, students }) => {
-    const handleClick = e => {
-        e.preventDefault();
-        history.push('/schools/create');
-    }
     return(
         <Fragment>
             <h2>Schools</h2>
@@ -21,7 +17,7 @@ const Schools = ({ schools, history, students }) => {
                 </li>)
             }
             </ul>
-            <button onClick={ (e) => handleClick(e) }>Add new school</button>
+            <button onClick={ () => history.push('/schools/create') }>Add new school</button>
             <br/>
             <button onClick={ () => history.goBack() }>Back</button>
         </Fragment>

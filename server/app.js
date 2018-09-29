@@ -13,7 +13,7 @@ app.use('/api/students', require('./students'));
 
 app.use((err, req, res, next) => {
     console.log(err);
-    res.status(500).send({ eroor: err.message });
+    res.status(err.status || 500).send({ error: err.message });
 })
 
 module.exports = app;

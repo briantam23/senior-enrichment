@@ -9,8 +9,9 @@ class StudentsCreateUpdate extends Component {
         this.state = {
             firstName: student ? student.firstName : '',
             lastName: student ? student.lastName : '',
-            GPA: student ? student.GPA : 3.0,
-            schoolName: (student && student.schoolId) || schoolId ? schoolName : ''
+            GPA: student ? student.GPA : 3.3,
+            schoolName: (student && student.schoolId) || schoolId ? schoolName : '',
+            error: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -30,16 +31,19 @@ class StudentsCreateUpdate extends Component {
         e.preventDefault();
         studentId === 'create' || !studentId
         ? createStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null }, history)
+            .catch(() => this.setState({ error: 'Error! Invalid GPA. Please try again.' }))
         : updateStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null, id: studentId }, history)
+            .catch(() => this.setState({ error: 'Error! Invalid GPA. Please try again.' }))
     }
     render() {
         const { student, schools, destroyStudent, history } = this.props;
-        const { firstName, lastName, GPA, schoolName } = this.state;
+        const { firstName, lastName, GPA, schoolName, error } = this.state;
         const { handleChange, onSubmit } = this;
         return(
             <Fragment>
                 <h2>Student</h2>
                 { student ? <h5>{ student.name }</h5> : null }
+                { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
                         <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus></input>
@@ -69,7 +73,7 @@ class StudentsCreateUpdate extends Component {
                         ) : <button disabled={ (!firstName || !lastName || !GPA) }>Save</button>
                     }
                 </form>
-                    <button onClick={ () => destroyStudent(student, history) }>Delete</button>
+                { history === 'create' ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
                 <br/>
                 <button onClick={ () => history.goBack() }>Back</button>
             </Fragment>
