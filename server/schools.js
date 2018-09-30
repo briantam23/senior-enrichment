@@ -8,7 +8,10 @@ router.get('/', (req, res, next) => {
 })
 router.get('/:id', (req, res, next) => {
     School.findById(req.params.id)
-        .then(school => res.send(school))
+        .then(school => {
+            if(!school) return res.sendStatus(404);
+            res.send(school)
+        })
         .catch(next)
 })
 router.post('/', (req, res, next) => {

@@ -74,5 +74,6 @@ module.exports = {
     models: {
         School,
         Student
-    }
+    },
+    conn //for test
 }

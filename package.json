@@ -4,11 +4,11 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "start": "npm run webpack",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build": "npm run webpack -- --watch --mode=development",
-    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment nodemon server/index.js --ignore dist --ignore src"
+    "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment nodemon server/index.js --ignore dist --ignore src",
+    "test": "mocha ./test/*.test.js --watch --require babel-polyfill --compilers js:babel-register"
   },
   "keywords": [],
   "author": "",
@@ -40,7 +40,17 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.38.1",
+    "supertest": "^3.3.0",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "bluebird": "^3.5.2",
+    "chai": "^4.2.0",
+    "chalk": "^2.4.1",
+    "mocha": "^5.2.0",
+    "sinon": "^6.3.4",
+    "sinon-chai": "^3.2.0"
   }
 }
