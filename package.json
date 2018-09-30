@@ -49,6 +49,8 @@
     "bluebird": "^3.5.2",
     "chai": "^4.2.0",
     "chalk": "^2.4.1",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "mocha": "^5.2.0",
     "sinon": "^6.3.4",
     "sinon-chai": "^3.2.0"
