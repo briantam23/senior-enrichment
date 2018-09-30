@@ -24,7 +24,7 @@ class App extends Component {
     }
     render() {
         const { students } = this.props;
-        if(this.state.loading) return <ReactLoading type='spokes' color='yellow' />
+        if(this.state.loading) return <ReactLoading type='spokes' color='black' />
         return(
             <Fragment>
                 <img src='../../public/school.jpeg' alt='Picture of School' />
