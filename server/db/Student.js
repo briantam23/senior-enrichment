@@ -17,7 +17,8 @@ const Student = conn.define('student', {
         type: conn.Sequelize.DECIMAL(2, 1),
         allowNull: false,
         unique: false,
-        validate: { min: 0.0, max: 4.0 }
+        validate: { min: 0.0, max: 4.0 },
+        defaultValue: 3.3
     }
 })
 

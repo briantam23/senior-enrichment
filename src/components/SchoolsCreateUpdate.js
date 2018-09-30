@@ -74,7 +74,7 @@ class SchoolsCreateUpdate extends Component {
                     id !== 'create' ? (
                     <Fragment>
                         <br/>
-                        <button onClick={ () => destroySchool(school, history, students, id) }>Delete</button>
+                        <button onClick={ () => destroySchool(school, history, students, false) }>Delete</button>
                         <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                         <br/>
                         <br/>

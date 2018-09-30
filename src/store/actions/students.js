@@ -31,12 +31,12 @@ const _updateStudent = student => ({
     type: UPDATE_STUDENT,
     students: student
 })
-export const updateStudent = (student, history, id) => (
+export const updateStudent = (student, history, redirectToStudents) => (
     dispatch => (
         axios.put(`/api/students/${student.id}`, student)
             .then(res => res.data)
             .then(_student => dispatch(_updateStudent(_student)))
-            .then(() => !id ? history.push('/students') : null)
+            .then(() => redirectToStudents ? history.push('/students') : null)
     )
 )
 
@@ -48,6 +48,8 @@ export const destroyStudent = (student, history) => (
     dispatch => (
         axios.delete(`/api/students/${student.id}`)
             .then(() => dispatch(_destroyStudent(student)))
-            .then(() => history.push('/students'))
+            .then(() => { 
+                if(history) history.push('/students'); 
+            })
     )
 )

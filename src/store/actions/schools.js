@@ -44,14 +44,19 @@ const _destroySchool = school => ({
     type: DESTROY_SCHOOL,
     schools: school
 })
-export const destroySchool = (school, history, students, id) => {
+export const destroySchool = (school, history, students, redirectToStudents) => { 
     students = findStudentsBySchool(students, school);
     return dispatch => (
         axios.delete(`/api/schools/${school.id}`)
             .then(() => dispatch(_destroySchool(school))) 
-            .then(() => students.forEach(student => (
-                dispatch(updateStudent({ ...student, schoolId: null } , history, id)))
-            ))
-            .then(() => history.push('/schools'))
+            .then(() => {
+                if(students) {
+                    students.forEach(student => (
+                        dispatch(updateStudent({ ...student, schoolId: null } , history, redirectToStudents))))
+                }
+            })
+            .then(() => {
+                if(history) history.push('/schools');
+            })
     )
 }
