@@ -78,6 +78,7 @@ class SchoolsCreateUpdate extends Component {
                         <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                         <br/>
                         <br/>
+                        { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
                         <ul>
                         {
                             enrolledStudents.map(enrolledStudent => (
@@ -87,7 +88,6 @@ class SchoolsCreateUpdate extends Component {
                                 </li>))
                         }
                         </ul>
-                        <h4>Enroll existing student</h4>
                         <form onSubmit={ onStudentSubmit }>
                             <select onChange={ handleChange } value={ studentName } id='studentName'>
                                 <option>--Select Student--</option>
@@ -99,7 +99,7 @@ class SchoolsCreateUpdate extends Component {
                                 ))
                             }
                             </select>
-                            <button disabled={ !studentName }>+</button>
+                            <button disabled={ !studentName }>Enroll</button>
                         </form>
                         <br/>
                         <button onClick={ () => history.goBack() }>Back</button>

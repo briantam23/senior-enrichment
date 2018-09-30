@@ -26,7 +26,7 @@ class App extends Component {
         const { students } = this.props;
         if(this.state.loading) return <ReactLoading type='spokes' color='black' />
         return(
-            <Fragment>
+            <div id='box'>
                 <img src='../../public/school.jpeg' alt='Picture of School' />
                 <h1>Acme School</h1>
                 <Router>
@@ -48,7 +48,7 @@ class App extends Component {
                         </Switch>
                     </Fragment>
                 </Router>
-            </Fragment>
+            </div>
         )
     }
 }

@@ -36,9 +36,10 @@ class StudentsCreateUpdate extends Component {
             .catch(() => this.setState({ error: 'Error! Invalid GPA. Please try again.' }))
     }
     render() {
-        const { student, schools, destroyStudent, history } = this.props;
+        const { student, schools, destroyStudent, history, studentId, schoolId } = this.props;
         const { firstName, lastName, GPA, schoolName, error } = this.state;
         const { handleChange, onSubmit } = this;
+        console.log(studentId)
         return(
             <Fragment>
                 <h2>Student</h2>
@@ -73,7 +74,7 @@ class StudentsCreateUpdate extends Component {
                         ) : <button disabled={ (!firstName || !lastName || !GPA) }>Save</button>
                     }
                 </form>
-                { history === 'create' ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
+                { studentId !== 'create' || schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
                 <br/>
                 <button onClick={ () => history.goBack() }>Back</button>
             </Fragment>

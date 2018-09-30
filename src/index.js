@@ -6,7 +6,9 @@ import store from './store';
 
 render(
     <Provider store={ store }>
-        <App />
+        <div id='container'>
+            <App />
+        </div>
     </Provider>,
     document.getElementById('root')
 )
