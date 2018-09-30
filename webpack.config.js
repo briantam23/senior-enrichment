@@ -4,6 +4,7 @@ module.exports = {
         path: __dirname + '/public',
         filename: 'bundle.js'
     },
+    entry: ['babel-polyfill', './src/index.js'],
     module: {
       rules: [
         {
