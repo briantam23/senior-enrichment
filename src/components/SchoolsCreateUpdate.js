@@ -42,7 +42,7 @@ class SchoolsCreateUpdate extends Component {
         const { studentName } = this.state;
         e.preventDefault();
         const selectedStudent = findStudentByName(unenrolledStudents, studentName);
-        updateStudent({ ...selectedStudent, schoolId: id*1 }, history, id);
+        updateStudent({ ...selectedStudent, schoolId: id*1 }, history, false);
     }
     render() {
         const { school, id, destroySchool, history, enrolledStudents, unenrolledStudents, updateStudent, students } = this.props;
@@ -51,8 +51,8 @@ class SchoolsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>School</h2>
-            { school ? <h5>{ school.name }</h5> : null }
-            { error ? <div className='error-message'>{ error }</div> : null }
+                <hr/><br/>
+                { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
                         <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus></input>
@@ -61,7 +61,7 @@ class SchoolsCreateUpdate extends Component {
                         <input onChange={ handleChange } value={ description } id='description' placeholder='Description'></input>
                         <br/>
                     <label htmlFor='address'>Address: </label>
-                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address'></input>
+                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40'></input>
                         <br/>
                 {
                     school ? (
@@ -73,18 +73,17 @@ class SchoolsCreateUpdate extends Component {
                 {
                     id !== 'create' ? (
                     <Fragment>
-                        <br/>
+                        <br/><hr/>
                         <button onClick={ () => destroySchool(school, history, students, false) }>Delete</button>
                         <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
-                        <br/>
-                        <br/>
+                        <br/><br/><hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
                         <ul>
                         {
                             enrolledStudents.map(enrolledStudent => (
                                 <li key={ enrolledStudent.id }>
                                     { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
-                                    <button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, id) }>X</button>
+                                    <button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) }>X</button>
                                 </li>))
                         }
                         </ul>
@@ -101,11 +100,11 @@ class SchoolsCreateUpdate extends Component {
                             </select>
                             <button disabled={ !studentName }>Enroll</button>
                         </form>
-                        <br/>
-                        <button onClick={ () => history.goBack() }>Back</button>
                     </Fragment>
                     ): null 
                 }
+                <br/><hr/>
+                <button onClick={ () => history.goBack() }>Back</button>
             </Fragment>
         )
     }

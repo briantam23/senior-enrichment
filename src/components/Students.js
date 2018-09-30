@@ -7,22 +7,26 @@ const Students = ({ students, schools, history, destroyStudent }) => {
     return(
         <Fragment>
             <h2>Students</h2>
+            <hr/>
             <ul>
             {
                 students.map(student => (
                     <li key={ student.id }>
                         <Link to={`/students/${student.id}`}>{ student.lastName + ', ' + student.firstName }</Link>
+                        &emsp;
+                        <button onClick={ () => destroyStudent(student) }>Delete</button>
+                        <br/>
                     {
                         student.schoolId && schools
                         ? ' School: ' + schools.find(school => school.id === student.schoolId).name
                         : null
                     }
-                        <button onClick={ () => destroyStudent(student) }>Delete</button>
+                        <br/>
                     </li>))
             }
             </ul>
             <button onClick={ () => history.push('/students/create') }>Add new student</button>
-            <br/>
+            <br/><br/><hr/>
             <button onClick={ () => history.goBack() }>Back</button>
         </Fragment>
     )

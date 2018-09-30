@@ -42,7 +42,7 @@ class StudentsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>Student</h2>
-                { student ? <h5>{ student.name }</h5> : null }
+                <hr/><br/>
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
@@ -52,7 +52,7 @@ class StudentsCreateUpdate extends Component {
                         <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name'></input>
                         <br/>
                     <label htmlFor='GPA'>GPA: </label>
-                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA'></input>
+                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' size='3'></input>
                         <br/>
                     <label htmlFor='schoolName'>School: </label>
                         <select onChange={ handleChange } value={ schoolName } id='schoolName'>
@@ -74,7 +74,7 @@ class StudentsCreateUpdate extends Component {
                     }
                 </form>
                 { studentId !== 'create' && !schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
-                <br/>
+                <br/><br/><hr/>
                 <button onClick={ () => history.goBack() }>Back</button>
             </Fragment>
         )

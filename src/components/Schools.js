@@ -7,6 +7,7 @@ const Schools = ({ schools, history, students, destroySchool }) => {
     return(
         <Fragment>
             <h2>Schools</h2>
+            <hr/>
             <ul>
             {
                 schools.map(school => (
@@ -15,13 +16,14 @@ const Schools = ({ schools, history, students, destroySchool }) => {
                         students.filter(_student => (
                             _student.schoolId === school.id
                         )).length
-                        })
+                        }) 
+                        &emsp;
                         <button onClick={ () => destroySchool(school, null, students) }>Delete</button>
                     </li>))
             }
             </ul>
             <button onClick={ () => history.push('/schools/create') }>Add new school</button>
-            <br/>
+            <br/><br/><hr/>
             <button onClick={ () => history.goBack() }>Back</button>
         </Fragment>
     )

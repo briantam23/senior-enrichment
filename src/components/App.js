@@ -39,10 +39,10 @@ class App extends Component {
                             
                             <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => 
                                 <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
-
+                        
                             <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => 
                                 <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
-
+                            
                             <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => 
                                 <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
                         </Switch>

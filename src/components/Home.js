@@ -3,8 +3,9 @@ import React, { Fragment } from 'react';
 const Home = ({ history }) => (
     <Fragment>
         <h2>Home Page</h2>
-        <img src='../../public/michiganStadium.jpeg' alt='Michigan Stadium' />
-        <br/>
+        <hr/><br/>
+        <img src='../../public/michiganLogo.jpg' alt='Michigan Logo' />
+        <br/><br/><hr/>
         <button onClick={ () => history.goBack() }>Back</button>
     </Fragment>
 )
