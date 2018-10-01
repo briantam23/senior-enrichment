@@ -39,7 +39,6 @@ class StudentsCreateUpdate extends Component {
         const { student, schools, destroyStudent, history, studentId, schoolId } = this.props;
         const { firstName, lastName, GPA, schoolName, error } = this.state;
         const { handleChange, onSubmit } = this;
-        console.log(history)
         return(
             <Fragment>
                 <h2>Student</h2>
