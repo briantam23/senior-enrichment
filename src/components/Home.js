@@ -7,6 +7,8 @@ const Home = ({ history }) => (
         <img src='../../public/michiganLogo.jpg' alt='Michigan Logo' />
         <br/><br/><hr/>
         <button onClick={ () => history.goBack() }>Back</button>
+        &emsp;
+        <button onClick={ () => history.goForward() }>Forward</button>
     </Fragment>
 )
 

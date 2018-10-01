@@ -11,7 +11,7 @@ const School = require('../server/db/School');
 const Student = require('../server/db/Student');
 
 
-describe('Schools Route:', () => {
+describe('The `Schools` Route:', () => {
 
     // First we clear the database before beginning each run
     before(() => {
@@ -228,6 +228,46 @@ describe('Schools Route:', () => {
                 .put('/api/schools/' + school.id)
                 .send({ name: '' })
                 .expect(500);
+        })
+    })
+
+    describe('DELETE, /api/schools/:id', () => {
+
+        let school;
+
+        beforeEach(async() => {
+            school = await School.create({
+                name: 'Final School',
+                description: 'You can do it!',
+                address: '123 Easy Street, Easyville, NY 12345'
+            })
+        })
+
+        it('deletes a school', async() => {
+
+            const res = await agent
+                .delete('/api/schools/' + school.id)
+                .expect(204)
+
+            expect(res.body.id).to.be.an('undefined');
+        })
+
+        it('saves changes in database', async() => {
+
+            const res = await agent
+                .delete('/api/schools/' + school.id)
+                .expect(204)
+
+            const foundSchool = await School.findById(school.id);
+
+            expect(foundSchool).to.not.exist;
+        })
+
+        it('responds with a 500 if a user does not exist', () => {
+            
+            return agent
+                .delete('/api/schools/123')
+                .expect(500)
         })
     })
 })

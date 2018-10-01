@@ -39,6 +39,7 @@ class StudentsCreateUpdate extends Component {
         const { student, schools, destroyStudent, history, studentId, schoolId } = this.props;
         const { firstName, lastName, GPA, schoolName, error } = this.state;
         const { handleChange, onSubmit } = this;
+        console.log(history)
         return(
             <Fragment>
                 <h2>Student</h2>
@@ -76,6 +77,8 @@ class StudentsCreateUpdate extends Component {
                 { studentId !== 'create' && !schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
                 <br/><br/><hr/>
                 <button onClick={ () => history.goBack() }>Back</button>
+                &emsp;
+                <button onClick={ () => history.goForward() }>Forward</button>
             </Fragment>
         )
     }

@@ -12,7 +12,7 @@ import Schools from '../src/components/Schools';
 import SchoolsCreateUpdate from '../src/components/SchoolsCreateUpdate';
 import store from '../src/store';
 
-describe('React', () => {
+describe('The `School` React Components:', () => {
 
     const SCHOOLS = [
         { 

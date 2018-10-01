@@ -75,6 +75,7 @@ class SchoolsCreateUpdate extends Component {
                     <Fragment>
                         <br/><hr/>
                         <button onClick={ () => destroySchool(school, history, students, false) }>Delete</button>
+                        &emsp;
                         <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                         <br/><br/><hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
@@ -105,6 +106,8 @@ class SchoolsCreateUpdate extends Component {
                 }
                 <br/><hr/>
                 <button onClick={ () => history.goBack() }>Back</button>
+                &emsp;
+                <button onClick={ () => history.goForward() }>Forward</button>
             </Fragment>
         )
     }

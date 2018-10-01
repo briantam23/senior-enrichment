@@ -14,7 +14,7 @@ app.use('/api/schools', require('./schools'));
 app.use('/api/students', require('./students'));
 
 app.use((err, req, res, next) => {
-   /*  console.log(err);
+    /* console.log(err);
     res.status(err.status || 500).send({ error: err.message }); */
       // just in case
     if (!err.stack || !err.message) next(err);

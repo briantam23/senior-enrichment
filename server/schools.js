@@ -27,7 +27,10 @@ router.put('/:id', (req, res, next) => {
 })
 router.delete('/:id', (req, res, next) => {
     School.destroy({ where: { id: req.params.id } })
-        .then(() => res.sendStatus(204))
+        .then(err => {
+            if(err === 0) return res.sendStatus(500);
+            res.sendStatus(204);
+        })
         .catch(next)
 })
 

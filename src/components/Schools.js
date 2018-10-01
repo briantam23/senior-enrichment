@@ -25,6 +25,8 @@ const Schools = ({ schools, history, students, destroySchool }) => {
             <button onClick={ () => history.push('/schools/create') }>Add new school</button>
             <br/><br/><hr/>
             <button onClick={ () => history.goBack() }>Back</button>
+            &emsp;
+            <button onClick={ () => history.goForward() }>Forward</button>
         </Fragment>
     )
 }
