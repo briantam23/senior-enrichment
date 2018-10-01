@@ -2,7 +2,7 @@ import { LOAD_INITIAL_SCHOOLS, CREATE_SCHOOL, UPDATE_SCHOOL, DESTROY_SCHOOL } fr
 import { sortSchools } from '../../utils';
 
 
-export const schoolsReducer = (state = [], action) => {
+const schoolsReducer = (state = [], action) => {
     switch(action.type) {
         case LOAD_INITIAL_SCHOOLS:
             return action.schools.sort((a, b) => sortSchools(a, b));
@@ -16,3 +16,5 @@ export const schoolsReducer = (state = [], action) => {
             return state;
     }
 }
+
+export default schoolsReducer;

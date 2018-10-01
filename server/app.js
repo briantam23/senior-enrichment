@@ -14,9 +14,15 @@ app.use('/api/schools', require('./schools'));
 app.use('/api/students', require('./students'));
 
 app.use((err, req, res, next) => {
+    // My code //
+    
     /* console.log(err);
     res.status(err.status || 500).send({ error: err.message }); */
-      // just in case
+
+
+    // Checkpoint code to clean up DB error messages //
+
+    // just in case
     if (!err.stack || !err.message) next(err);
     // clean up the trace to just relevant info
     const cleanTrace = err.stack

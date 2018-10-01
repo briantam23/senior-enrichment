@@ -2,7 +2,7 @@ import { LOAD_INITIAL_STUDENTS, CREATE_STUDENT, UPDATE_STUDENT, DESTROY_STUDENT 
 import { sortStudents } from '../../utils';
 
 
-export const studentsReducer = (state = [], action) => {
+const studentsReducer = (state = [], action) => {
     switch(action.type) {
         case LOAD_INITIAL_STUDENTS:
             return action.students.sort((a, b) => sortStudents(a, b));
@@ -16,3 +16,5 @@ export const studentsReducer = (state = [], action) => {
             return state;
     }
 }
+
+export default studentsReducer;

@@ -39,7 +39,7 @@ describe('The `Schools` Route:', () => {
         })
     
 
-        // Save an article in the database using our model and then retrieve it
+        // Save an school in the database using our model and then retrieve it
         it('returns an school if there is one in the DB', async () => {
 
             await School.create({
@@ -98,7 +98,7 @@ describe('The `Schools` Route:', () => {
             coolSchool = createdSchools[1];
         })
 
-        it('returns the JSON of the article based on the id', async () => {
+        it('returns the JSON of the school based on the id', async () => {
 
             const res = await agent
                 .get('/api/schools/' + coolSchool.id)
@@ -119,7 +119,7 @@ describe('The `Schools` Route:', () => {
     })
 
     describe('POST /api/schools', () => {
-        it('creates a new article', async () => {
+        it('creates a new school', async () => {
 
             const res = await agent
                 .post('/api/schools')
@@ -134,7 +134,7 @@ describe('The `Schools` Route:', () => {
             expect(res.body.description).to.equal('Can you believe I did this in a test?');
         })
 
-        it('does not create a new article without address', () => {
+        it('does not create a new school without address', () => {
 
             return agent    
                 .post('/api/schools')
@@ -145,7 +145,7 @@ describe('The `Schools` Route:', () => {
         })
 
         // Check if the schools were actually saved to the DB
-        it('saves the article to the DB', async () => {
+        it('saves the school to the DB', async () => {
             
             await agent
                 .post('/api/schools')
@@ -165,7 +165,7 @@ describe('The `Schools` Route:', () => {
         })
 
         // Do not assume async operations (like db writes) will work; always check
-        it('sends back JSON of the actual created article, not just teh POSTed data', async () => {
+        it('sends back JSON of the actual created school, not just the POSTed data', async () => {
 
             const res = await agent
                 .post('/api/schools')
@@ -263,7 +263,7 @@ describe('The `Schools` Route:', () => {
             expect(foundSchool).to.not.exist;
         })
 
-        it('responds with a 500 if a user does not exist', () => {
+        it('responds with a 500 if a school does not exist', () => {
             
             return agent
                 .delete('/api/schools/123')

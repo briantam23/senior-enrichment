@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { schoolsReducer} from './reducers/schools';
-import { studentsReducer } from './reducers/students';
+import schoolsReducer from './reducers/schools';
+import studentsReducer from './reducers/students';
 
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
     schools: schoolsReducer,
     students: studentsReducer
 })

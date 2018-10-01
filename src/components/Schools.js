@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { destroySchool } from '../store/actions/schools';
 
-const Schools = ({ schools, history, students, destroySchool }) => {
+export const Schools = ({ schools, history, students, destroySchool }) => {
     return(
         <Fragment>
             <h2>Schools</h2>

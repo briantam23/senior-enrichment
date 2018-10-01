@@ -103,7 +103,7 @@ describe('The `School` model:', () => {
         })
     })
 
-    describe('capitalize hook', () => {
+    describe('capitalization hooks', () => {
 
         it('capitalizes before creating', async () => {
 
