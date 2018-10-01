@@ -9,13 +9,12 @@ Enzyme.configure({ adapter });
 
 
 import { Schools } from '../src/components/Schools';
-import SchoolsCreateUpdate from '../src/components/SchoolsCreateUpdate';
-import schoolsReducer from '../src/store/reducers/schools';
+import { SchoolsCreateUpdate } from '../src/components/SchoolsCreateUpdate';
 
 
 describe('The `School` React Components:', () => {
 
-    let schools, students;
+    let schools, students, enrolledStudents, unenrolledStudents;
 
     schools = [{ 
         name: 'George Washington',
@@ -85,6 +84,27 @@ describe('The `School` React Components:', () => {
         schoolId: 2
     }]
 
+    unenrolledStudents = [{
+        id: 1,
+        lastName: "Brown",
+        firstName: "Mike",
+        GPA: "2.8",
+        createdAt: "2018-10-01T14:35:05.624Z",
+        updatedAt: "2018-10-01T14:35:05.749Z",
+        schoolId: 3
+    },
+    {
+        id: 4,
+        lastName: "Peters",
+        firstName: "Brian",
+        GPA: "3.5",
+        createdAt: "2018-10-01T14:35:05.628Z",
+        updatedAt: "2018-10-01T14:35:05.750Z",
+        schoolId: 2
+    }]
+    enrolledStudents = [];
+
+
     describe('<Schools /> component', () => {   
         let schoolsWrapper;
 
@@ -108,6 +128,34 @@ describe('The `School` React Components:', () => {
         it('renders a <button> within the <li> for each school', () => {
 
             expect(schoolsWrapper.find('li').find('button').length).to.be.equal(schools.length);
+        })
+    })
+
+    describe('<SchoolsCreateUpdate />', () => {
+        let schoolsCreateUpdateWrapper, destroySchoolSpy;
+
+        beforeEach('Create Component', () => {
+            destroySchoolSpy = spy();
+
+            schoolsCreateUpdateWrapper = shallow(<SchoolsCreateUpdate schools={ schools } students={ students } 
+                enrolledStudents={ enrolledStudents } unenrolledStudents={ unenrolledStudents } 
+                destroySchool={ destroySchoolSpy } />)
+        })
+
+        it('renders an <option> element for each unenrolled student', () => {
+
+            expect(schoolsCreateUpdateWrapper.find('select').find('option').length).to.be.equal(unenrolledStudents.length + 1); // additional for default option
+        })
+
+        it('when clicked, invokes a function passed in', () => {
+
+            // The function passed into button should not be called immediately.
+            expect(destroySchoolSpy).not.to.have.been.called;
+
+            //This will trigger any onClick handlers registered to the component.
+            schoolsCreateUpdateWrapper.find('button').at(1).simulate('click');
+
+            expect(destroySchoolSpy).to.have.been.called;
         })
     })
 })

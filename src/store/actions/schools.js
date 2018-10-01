@@ -15,7 +15,7 @@ export const loadInitialSchools = () => (
     )
 )
 
-const _createSchool = school => ({
+export const _createSchool = school => ({
     type: CREATE_SCHOOL,
     schools: school
 })

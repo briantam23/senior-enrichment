@@ -4,7 +4,7 @@ import { createSchool, updateSchool, destroySchool } from '../store/actions/scho
 import { updateStudent } from '../store/actions/students';
 import { enrolled, unenrolled, findSchoolByURL, findStudentByName } from '../utils';
 
-class SchoolsCreateUpdate extends Component {
+export class SchoolsCreateUpdate extends Component {
     constructor({ school }) {
         super();
         this.state = {
