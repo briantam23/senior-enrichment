@@ -51,7 +51,10 @@ export class SchoolsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>School</h2>
-                <hr/><br/>
+            {
+                school ? <h3>{ school.name }</h3> : null
+            }
+                <hr/>
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
@@ -73,11 +76,8 @@ export class SchoolsCreateUpdate extends Component {
                 {
                     id !== 'create' ? (
                     <Fragment>
-                        <br/><hr/>
                         <button onClick={ () => destroySchool(school, history, students, false) }>Delete</button>
-                        &emsp;
-                        <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
-                        <br/><br/><hr/>
+                        <hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
                         <ul>
                         {
@@ -101,10 +101,12 @@ export class SchoolsCreateUpdate extends Component {
                             </select>
                             <button disabled={ !studentName }>Enroll</button>
                         </form>
+                        <hr/>
+                        <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
                     </Fragment>
                     ): null 
                 }
-                <br/><hr/>
+                <br/><hr/><br/>
                 <button onClick={ () => history.goBack() }>Back</button>
                 &emsp;
                 <button onClick={ () => history.goForward() }>Forward</button>

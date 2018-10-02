@@ -42,6 +42,9 @@ class StudentsCreateUpdate extends Component {
         return(
             <Fragment>
                 <h2>Student</h2>
+            {
+                student ? <h3>{ student.lastName + ', ' + student.firstName }</h3> : null
+            }
                 <hr/><br/>
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
