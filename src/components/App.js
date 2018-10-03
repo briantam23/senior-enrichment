@@ -9,6 +9,7 @@ import Students from './Students';
 import SchoolsCreateUpdate from './SchoolsCreateUpdate';
 import StudentsCreateUpdate from './StudentsCreateUpdate';
 import Home from './Home';
+import Footer from './Footer';
 import ReactLoading from 'react-loading';
 
 class App extends Component {
@@ -33,7 +34,7 @@ class App extends Component {
                     <Fragment>
                         <Route render={ ({ location }) => <Nav pathname={ location.pathname } /> } />
                         <Switch>
-                            <Route exact path='/' render={ ({ history }) => <Home history={ history } /> } />
+                            <Route exact path='/' render={ () => <Home /> } />
                             <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
                             <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
                             
@@ -46,6 +47,7 @@ class App extends Component {
                             <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => 
                                 <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
                         </Switch>
+                        <Route render={ ({ history }) => <Footer history={ history } /> } />
                     </Fragment>
                 </Router>
             </div>

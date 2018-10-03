@@ -106,10 +106,6 @@ export class SchoolsCreateUpdate extends Component {
                     </Fragment>
                     ): null 
                 }
-                <br/><hr/><br/>
-                <button onClick={ () => history.goBack() }>Back</button>
-                &emsp;
-                <button onClick={ () => history.goForward() }>Forward</button>
             </Fragment>
         )
     }

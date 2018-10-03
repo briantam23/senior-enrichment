@@ -10,7 +10,7 @@ class StudentsCreateUpdate extends Component {
             firstName: student ? student.firstName : '',
             lastName: student ? student.lastName : '',
             GPA: student ? student.GPA : 3.3,
-            schoolName: (student && student.schoolId) || schoolId ? schoolName : '',
+            schoolName: (student && student.schoolId) || schoolId ? schoolName : '--None--',
             error: ''
         }
         this.handleChange = this.handleChange.bind(this);
@@ -70,17 +70,21 @@ class StudentsCreateUpdate extends Component {
                         <br/>
                     {
                         student ? (
-                            <button disabled={ (!firstName || !lastName || !GPA) || 
+                            <button disabled=
+                            {     
+                                (!firstName || !lastName || !GPA) || 
+
                                 (firstName === student.firstName && lastName === student.lastName 
-                                && GPA === student.GPA && schoolName === this.props.schoolName) }>Save</button>
+                                && GPA === student.GPA && schoolName === this.props.schoolName) 
+
+                                || (firstName === student.firstName && lastName === student.lastName 
+                                && GPA === student.GPA && schoolName === '--None--' && !this.props.schoolName)
+
+                            }>Save</button>
                         ) : <button disabled={ (!firstName || !lastName || !GPA) }>Save</button>
                     }
                 </form>
                 { studentId !== 'create' && !schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
-                <br/><br/><hr/>
-                <button onClick={ () => history.goBack() }>Back</button>
-                &emsp;
-                <button onClick={ () => history.goForward() }>Forward</button>
             </Fragment>
         )
     }
