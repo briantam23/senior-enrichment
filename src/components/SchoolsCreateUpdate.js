@@ -4,6 +4,7 @@ import { createSchool, updateSchool, destroySchool } from '../store/actions/scho
 import { updateStudent } from '../store/actions/students';
 import { enrolled, unenrolled, findSchoolByURL, findStudentByName } from '../utils';
 
+
 export class SchoolsCreateUpdate extends Component {
     constructor({ school }) {
         super();
@@ -58,19 +59,19 @@ export class SchoolsCreateUpdate extends Component {
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label>
-                        <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus></input>
+                        <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus required></input>
                         <br/>
                     <label htmlFor='description'>Description: </label>
                         <input onChange={ handleChange } value={ description } id='description' placeholder='Description'></input>
                         <br/>
                     <label htmlFor='address'>Address: </label>
-                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40'></input>
+                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40' required></input>
                         <br/>
                 {
                     school ? (
-                        <button disabled={ (!name || !address) || 
+                        <button disabled={
                             (name === school.name && description === school.description && address === school.address) }>Save</button>
-                    ) : <button disabled={ !name || !address }>Save</button>
+                    ) : <button>Save</button>
                 }    
                 </form>
                 {

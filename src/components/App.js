@@ -12,6 +12,7 @@ import Home from './Home';
 import Footer from './Footer';
 import ReactLoading from 'react-loading';
 
+
 class App extends Component {
     constructor() {
         super();
@@ -24,7 +25,6 @@ class App extends Component {
             .then(() =>this.setState({ loading: false }))
     }
     render() {
-        const { students } = this.props;
         if(this.state.loading) return <ReactLoading type='spokes' color='black' />
         return(
             <div id='box'>
@@ -55,8 +55,6 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ students })=> ({ students });
-
 const mapDispatchToProps = { loadInitialSchools, loadInitialStudents };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

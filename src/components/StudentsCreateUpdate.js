@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStudent, updateStudent, destroyStudent } from '../store/actions/students';
 import { findStudentByURL, findSchoolByStudent, findSchoolByName, findSchoolByURL } from '../utils';
 
+
 class StudentsCreateUpdate extends Component {
     constructor({ student, schoolName, schoolId }) {
         super();
@@ -27,7 +28,7 @@ class StudentsCreateUpdate extends Component {
         const { updateStudent, studentId, history, createStudent, schools } = this.props;
         const { firstName, lastName, GPA, schoolName } = this.state;
         let selectedSchool = null;
-        if(schoolName) selectedSchool = findSchoolByName(schools, schoolName);
+        if(schoolName !== '--None--') selectedSchool = findSchoolByName(schools, schoolName);
         e.preventDefault();
         studentId === 'create' || !studentId
         ? createStudent({ firstName, lastName, GPA, schoolId: selectedSchool ? selectedSchool.id : null }, history)
@@ -49,13 +50,13 @@ class StudentsCreateUpdate extends Component {
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label>
-                        <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus></input>
+                        <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus required></input>
                         <br/>
                     <label htmlFor='lastName'>Last Name: </label>
-                        <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name'></input>
+                        <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name' required></input>
                         <br/>
                     <label htmlFor='GPA'>GPA: </label>
-                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' size='3'></input>
+                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' size='3' required></input>
                         <br/>
                     <label htmlFor='schoolName'>School: </label>
                         <select onChange={ handleChange } value={ schoolName } id='schoolName'>
@@ -72,16 +73,11 @@ class StudentsCreateUpdate extends Component {
                         student ? (
                             <button disabled=
                             {     
-                                (!firstName || !lastName || !GPA) || 
-
-                                (firstName === student.firstName && lastName === student.lastName 
-                                && GPA === student.GPA && schoolName === this.props.schoolName) 
-
-                                || (firstName === student.firstName && lastName === student.lastName 
-                                && GPA === student.GPA && schoolName === '--None--' && !this.props.schoolName)
-
-                            }>Save</button>
-                        ) : <button disabled={ (!firstName || !lastName || !GPA) }>Save</button>
+                                firstName === student.firstName && lastName === student.lastName 
+                                && GPA === student.GPA && schoolName === this.props.schoolName
+                            }
+                            >Save</button>
+                        ) : <button>Save</button>
                     }
                 </form>
                 { studentId !== 'create' && !schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
@@ -92,7 +88,7 @@ class StudentsCreateUpdate extends Component {
 
 const mapStateToProps = ({ schools, students }, { studentId, history, schoolId }) => { 
     let student = null; 
-    let schoolName = null;
+    let schoolName = '--None--';
     if(studentId !== 'create') {                                // if(editForm) pre-populate info
         student = findStudentByURL(students, studentId);
         if(student && student.schoolId) schoolName = findSchoolByStudent(schools, student).name;
