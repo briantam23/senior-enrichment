@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createSchool, updateSchool, destroySchool } from '../store/actions/schools';
 import { updateStudent } from '../store/actions/students';
 import { enrolled, unenrolled, findSchoolByURL, findStudentByName } from '../utils';
+import { Button } from 'reactstrap';
 
 
 export class SchoolsCreateUpdate extends Component {
@@ -77,7 +78,7 @@ export class SchoolsCreateUpdate extends Component {
                 {
                     id !== 'create' ? (
                     <Fragment>
-                        <button onClick={ () => destroySchool(school, history, students, false) }>Delete</button>
+                        <Button onClick={ () => destroySchool(school, history, students, false) } color='danger'>Delete</Button>
                         <hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
                         <ul>

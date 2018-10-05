@@ -22,7 +22,7 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
                 </li>))
         }
         </ul>
-        <button onClick={ () => history.push('/schools/create') }>Add new school</button>
+        <Button onClick={ () => history.push('/schools/create') } color='success'>Add new school</Button>
     </Fragment>
 )
 
