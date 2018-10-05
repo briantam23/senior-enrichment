@@ -52,27 +52,32 @@ export class SchoolsCreateUpdate extends Component {
         const { name, description, address, studentName, error } = this.state;
         return(
             <Fragment>
+                <br/>
                 <h2>School</h2>
             {
-                school ? <h3>{ school.name }</h3> : null
+                school ? ( 
+                        <Fragment>
+                            <hr/>
+                            <h3>{ school.name }</h3>
+                        </Fragment> ) : null
             }
                 <hr/>
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
-                    <label htmlFor='name'>Name: </label>
+                    <label htmlFor='name'>Name: </label> &emsp;
                         <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus required></input>
                         <br/>
-                    <label htmlFor='description'>Description: </label>
+                    <label htmlFor='description'>Description: </label> &emsp;
                         <input onChange={ handleChange } value={ description } id='description' placeholder='Description'></input>
                         <br/>
-                    <label htmlFor='address'>Address: </label>
+                    <label htmlFor='address'>Address: </label> &emsp;
                         <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40' required></input>
                         <br/>
                 {
                     school ? (
-                        <button disabled={
-                            (name === school.name && description === school.description && address === school.address) }>Save</button>
-                    ) : <button>Save</button>
+                        <Button disabled={
+                            (name === school.name && description === school.description && address === school.address) } color='success'>Save</Button>
+                    ) : <Button color='success'>Save</Button>
                 }    
                 </form>
                 {
@@ -86,7 +91,9 @@ export class SchoolsCreateUpdate extends Component {
                             enrolledStudents.map(enrolledStudent => (
                                 <li key={ enrolledStudent.id }>
                                     { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
-                                    <button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) }>X</button>
+                                    &emsp;
+                                    <Button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) } color='danger'>X</Button>
+                                    <br/><br/>
                                 </li>))
                         }
                         </ul>
@@ -100,11 +107,11 @@ export class SchoolsCreateUpdate extends Component {
                                     </option>
                                 ))
                             }
-                            </select>
-                            <button disabled={ !studentName }>Enroll</button>
+                            </select> &emsp;
+                            <Button disabled={ !studentName } color='success'>Enroll</Button>
                         </form>
                         <hr/>
-                        <button onClick={ () => history.push(`/students/create/${id}`) }>Enroll new student</button>
+                        <Button onClick={ () => history.push(`/students/create/${id}`) } color='success'>Enroll new student</Button>
                     </Fragment>
                     ): null 
                 }

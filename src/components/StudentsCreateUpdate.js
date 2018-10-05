@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { createStudent, updateStudent, destroyStudent } from '../store/actions/students';
 import { findStudentByURL, findSchoolByStudent, findSchoolByName, findSchoolByURL } from '../utils';
+import { Button } from 'reactstrap';
 
 
 class StudentsCreateUpdate extends Component {
@@ -42,23 +43,28 @@ class StudentsCreateUpdate extends Component {
         const { handleChange, onSubmit } = this;
         return(
             <Fragment>
+                <br/>
                 <h2>Student</h2>
             {
-                student ? <h3>{ student.lastName + ', ' + student.firstName }</h3> : null
+                student ? (
+                    <Fragment>
+                        <hr/>
+                        <h3>{ student.lastName + ', ' + student.firstName }</h3>
+                    </Fragment>) : null
             }
                 <hr/><br/>
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
-                    <label htmlFor='firstName'>First Name: </label>
+                    <label htmlFor='firstName'>First Name: </label> &emsp;
                         <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus required></input>
                         <br/>
-                    <label htmlFor='lastName'>Last Name: </label>
+                    <label htmlFor='lastName'>Last Name: </label> &emsp;
                         <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name' required></input>
                         <br/>
-                    <label htmlFor='GPA'>GPA: </label>
+                    <label htmlFor='GPA'>GPA: </label> &emsp;
                         <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' size='3' required></input>
                         <br/>
-                    <label htmlFor='schoolName'>School: </label>
+                    <label htmlFor='schoolName'>School: </label> &emsp;
                         <select onChange={ handleChange } value={ schoolName } id='schoolName'>
                             <option>--None--</option>
                         {
@@ -71,16 +77,16 @@ class StudentsCreateUpdate extends Component {
                         <br/>
                     {
                         student ? (
-                            <button disabled=
+                            <Button color='success' disabled=
                             {     
                                 firstName === student.firstName && lastName === student.lastName 
                                 && GPA === student.GPA && schoolName === this.props.schoolName
                             }
-                            >Save</button>
-                        ) : <button>Save</button>
+                            >Save</Button>
+                        ) : <button color='success'>Save</button>
                     }
                 </form>
-                { studentId !== 'create' && !schoolId ? <button onClick={ () => destroyStudent(student, history) }>Delete</button> : null }
+                { studentId !== 'create' && !schoolId ? <Button onClick={ () => destroyStudent(student, history) } color='danger'>Delete</Button> : null }
             </Fragment>
         )
     }

@@ -17,8 +17,8 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
                 ({
                     students.filter(_student => _student.schoolId === school.id).length
                 }) 
-                    &emsp;
-                    <Button onClick={ () => destroySchool(school, null, students) } color='danger'>Delete</Button>
+                    <Button onClick={ () => destroySchool(school, null, students) } color='danger' style={{ float: 'right' }}>Delete</Button>
+                    <br/><br/>
                 </li>))
         }
         </ul>

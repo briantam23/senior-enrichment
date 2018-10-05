@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { destroyStudent } from '../store/actions/students';
+import { Button } from 'reactstrap';
 
 
 const Students = ({ students, schools, history, destroyStudent }) => (
@@ -13,8 +14,7 @@ const Students = ({ students, schools, history, destroyStudent }) => (
             students.map(student => (
                 <li key={ student.id }>
                     <Link to={ `/students/${student.id}` }>{ student.lastName + ', ' + student.firstName }</Link>
-                    &emsp;
-                    <button onClick={ () => destroyStudent(student) }>Delete</button>
+                    <Button onClick={ () => destroyStudent(student) } color='danger' style={{ float: 'right' }}>Delete</Button>
                     <br/>
                 {
                     student.schoolId && schools
@@ -25,7 +25,7 @@ const Students = ({ students, schools, history, destroyStudent }) => (
                 </li>))
         }
         </ul>
-        <button onClick={ () => history.push('/students/create') }>Add new student</button>
+        <Button onClick={ () => history.push('/students/create') } color='success'>Add new student</Button>
     </Fragment>
 )
 
