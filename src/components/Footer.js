@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
+import { Button } from 'reactstrap';
 
 
 const Footer = ({ history }) => (
     <Fragment>
-        <br/><br/><hr/>
-        <button onClick={ () => history.goBack() }>Back</button>
-        &emsp;
-        <button onClick={ () => history.goForward() }>Forward</button>
+        <br/><hr/>
+        <Button onClick={ () => history.goBack() } color='info'>Back</Button>
+        <Button onClick={ () => history.goForward() } color= 'info' style={{ float: 'right' }}>Forward</Button>
     </Fragment>
 )
 

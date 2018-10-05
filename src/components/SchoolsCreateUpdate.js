@@ -52,7 +52,6 @@ export class SchoolsCreateUpdate extends Component {
         const { name, description, address, studentName, error } = this.state;
         return(
             <Fragment>
-                <br/>
                 <h2>School</h2>
             {
                 school ? ( 
@@ -72,18 +71,21 @@ export class SchoolsCreateUpdate extends Component {
                         <br/>
                     <label htmlFor='address'>Address: </label> &emsp;
                         <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40' required></input>
-                        <br/>
+                        <br/><br/>
                 {
                     school ? (
                         <Button disabled={
-                            (name === school.name && description === school.description && address === school.address) } color='success'>Save</Button>
-                    ) : <Button color='success'>Save</Button>
+                            (name === school.name && description === school.description && address === school.address) } 
+                            color='success' block>
+                            Save
+                        </Button>
+                    ) : <Button color='success' block>Save</Button>
                 }    
                 </form>
                 {
                     id !== 'create' ? (
                     <Fragment>
-                        <Button onClick={ () => destroySchool(school, history, students, false) } color='danger'>Delete</Button>
+                        <Button onClick={ () => destroySchool(school, history, students, false) } color='danger' block>Delete</Button>
                         <hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
                         <ul>
@@ -92,7 +94,7 @@ export class SchoolsCreateUpdate extends Component {
                                 <li key={ enrolledStudent.id }>
                                     { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
                                     &emsp;
-                                    <Button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) } color='danger'>X</Button>
+                                    <Button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) } color='danger' style={{ float: 'right' }}>X</Button>
                                     <br/><br/>
                                 </li>))
                         }
@@ -111,7 +113,7 @@ export class SchoolsCreateUpdate extends Component {
                             <Button disabled={ !studentName } color='success'>Enroll</Button>
                         </form>
                         <hr/>
-                        <Button onClick={ () => history.push(`/students/create/${id}`) } color='success'>Enroll new student</Button>
+                        <Button onClick={ () => history.push(`/students/create/${id}`) } color='success' block>Enroll new student</Button>
                     </Fragment>
                     ): null 
                 }

@@ -5,17 +5,20 @@ import { selected } from '../utils';
 
 
 const Nav = ({ schools, students, pathname }) => (
-    <ul className='nav'>
-        <li style={ selected('/', pathname) }>
-            <Link to='/'>Home</Link>
-        </li>
-        <li style={ selected('/schools', pathname, true) }>
-            <Link to='/schools'>Schools</Link> ({ schools.length })
-        </li>
-        <li style={ selected('/students', pathname, true) }>
-            <Link to='/students'>Students</Link> ({ students.length })
-        </li>
-    </ul>
+    <Fragment>
+        <ul className='nav'>
+            <li style={ selected('/', pathname) }>
+                <Link to='/'>Home</Link>
+            </li>
+            <li style={ selected('/schools', pathname, true) }>
+                <Link to='/schools'>Schools</Link> ({ schools.length })
+            </li>
+            <li style={ selected('/students', pathname, true) }>
+                <Link to='/students'>Students</Link> ({ students.length })
+            </li>
+        </ul>
+        <br/>
+    </Fragment>
 )
 
 const mapStateToProps = ({ schools, students }, { pathname }) => ({ schools, students, pathname });

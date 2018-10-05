@@ -43,7 +43,6 @@ class StudentsCreateUpdate extends Component {
         const { handleChange, onSubmit } = this;
         return(
             <Fragment>
-                <br/>
                 <h2>Student</h2>
             {
                 student ? (
@@ -74,19 +73,20 @@ class StudentsCreateUpdate extends Component {
                                 </option>))
                         }
                         </select>
-                        <br/>
+                        <br/><br/>
                     {
                         student ? (
-                            <Button color='success' disabled=
+                            <Button color='success' block disabled=
                             {     
                                 firstName === student.firstName && lastName === student.lastName 
                                 && GPA === student.GPA && schoolName === this.props.schoolName
                             }
                             >Save</Button>
-                        ) : <button color='success'>Save</button>
+                        ) : <Button color='success' block>Save</Button>
                     }
                 </form>
-                { studentId !== 'create' && !schoolId ? <Button onClick={ () => destroyStudent(student, history) } color='danger'>Delete</Button> : null }
+                { studentId !== 'create' && !schoolId ? (
+                    <Button onClick={ () => destroyStudent(student, history) } color='danger' block>Delete</Button>) : null }
             </Fragment>
         )
     }

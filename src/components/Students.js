@@ -25,7 +25,7 @@ const Students = ({ students, schools, history, destroyStudent }) => (
                 </li>))
         }
         </ul>
-        <Button onClick={ () => history.push('/students/create') } color='success'>Add new student</Button>
+        <Button onClick={ () => history.push('/students/create') } color='success' block>Add new student</Button>
     </Fragment>
 )
 

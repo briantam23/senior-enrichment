@@ -13,7 +13,7 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
         {
             schools.map(school => (
                 <li key={ school.id }>
-                    <Link to={`/schools/${school.id}`}>{ school.name }</Link> 
+                    <Link to={`/schools/${school.id}`} className='alert-link'>{ school.name }</Link> 
                 ({
                     students.filter(_student => _student.schoolId === school.id).length
                 }) 
@@ -22,7 +22,7 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
                 </li>))
         }
         </ul>
-        <Button onClick={ () => history.push('/schools/create') } color='success'>Add new school</Button>
+        <Button onClick={ () => history.push('/schools/create') } color='success' block>Add new school</Button>
     </Fragment>
 )
 
