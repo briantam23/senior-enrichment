@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { destroySchool } from '../store/actions/schools';
+import { Button } from 'reactstrap';
 
 
 export const Schools = ({ schools, history, students, destroySchool }) => (
@@ -17,7 +18,7 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
                     students.filter(_student => _student.schoolId === school.id).length
                 }) 
                     &emsp;
-                    <button onClick={ () => destroySchool(school, null, students) }>Delete</button>
+                    <Button onClick={ () => destroySchool(school, null, students) } color='danger'>Delete</Button>
                 </li>))
         }
         </ul>

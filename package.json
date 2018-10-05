@@ -4,6 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
+    "start": "node ./server/index.js",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "build": "npm run webpack -- --watch --mode=development",
@@ -36,6 +37,7 @@
     "react-loading": "^2.0.3",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.5.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
