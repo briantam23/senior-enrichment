@@ -27,30 +27,32 @@ class App extends Component {
     render() {
         if(this.state.loading) return <ReactLoading type='spokes' color='black' />
         return(
-            <div id='box'>
+            <Fragment>
                 <img src='../../public/school.jpeg' alt='Picture of School' />
-                <h1>Acme School</h1>
-                <Router>
-                    <Fragment>
-                        <Route render={ ({ location }) => <Nav pathname={ location.pathname } /> } />
-                        <Switch>
-                            <Route exact path='/' render={ () => <Home /> } />
-                            <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
-                            <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
+                <div id='box'>
+                    <h1>Acme School</h1>
+                    <Router>
+                        <Fragment>
+                            <Route render={ ({ location }) => <Nav pathname={ location.pathname } /> } />
+                            <Switch>
+                                <Route exact path='/' render={ () => <Home /> } />
+                                <Route exact path='/schools' render={ ({ history }) => <Schools history={ history } /> } />
+                                <Route exact path='/students' render={ ({ history }) => <Students history={ history } /> } />
+                                
+                                <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => 
+                                    <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
                             
-                            <Route path={ '/schools/:id' || '/schools/create' } render={ ({ match, history }) => 
-                                <SchoolsCreateUpdate id={ match.params.id } history={ history } /> } />
-                        
-                            <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => 
-                                <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
-                            
-                            <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => 
-                                <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
-                        </Switch>
-                        <Route render={ ({ history }) => <Footer history={ history } /> } />
-                    </Fragment>
-                </Router>
-            </div>
+                                <Route path={ '/students/create/:schoolId' } render={ ({ match, history }) => 
+                                    <StudentsCreateUpdate schoolId={ match.params.schoolId } history={ history } /> } />
+                                
+                                <Route path={ '/students/:studentId' ||  '/students/create' } render={ ({ match, history }) => 
+                                    <StudentsCreateUpdate studentId={ match.params.studentId } history={ history } /> } />
+                            </Switch>
+                            <Route render={ ({ history }) => <Footer history={ history } /> } />
+                        </Fragment>
+                    </Router>
+                </div>
+            </Fragment>
         )
     }
 }

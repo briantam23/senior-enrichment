@@ -55,16 +55,16 @@ class StudentsCreateUpdate extends Component {
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSubmit }>
                     <label htmlFor='firstName'>First Name: </label> &emsp;
-                        <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' autoFocus required></input>
+                        <input onChange={ handleChange } value={ firstName } id='firstName' placeholder='First Name' style={{ float: 'right' }} autoFocus required></input>
                         <br/>
                     <label htmlFor='lastName'>Last Name: </label> &emsp;
-                        <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name' required></input>
+                        <input onChange={ handleChange } value={ lastName } id='lastName' placeholder='Last Name' style={{ float: 'right' }} required></input>
                         <br/>
                     <label htmlFor='GPA'>GPA: </label> &emsp;
-                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' size='3' required></input>
+                        <input onChange={ handleChange } value={ GPA } id='GPA' placeholder='GPA' style={{ float: 'right' }} required></input>
                         <br/>
                     <label htmlFor='schoolName'>School: </label> &emsp;
-                        <select onChange={ handleChange } value={ schoolName } id='schoolName'>
+                        <select onChange={ handleChange } value={ schoolName } id='schoolName' style={{ float: 'right' }}>
                             <option>--None--</option>
                         {
                             schools.map(school => (

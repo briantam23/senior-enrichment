@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createSchool, updateSchool, destroySchool } from '../store/actions/schools';
 import { updateStudent } from '../store/actions/students';
 import { enrolled, unenrolled, findSchoolByURL, findStudentByName } from '../utils';
-import { Button } from 'reactstrap';
+import { Button, Table } from 'reactstrap';
 
 
 export class SchoolsCreateUpdate extends Component {
@@ -64,13 +64,13 @@ export class SchoolsCreateUpdate extends Component {
                 { error ? <div className='error-message'>{ error }</div> : null }
                 <form onSubmit={ onSchoolSubmit }>
                     <label htmlFor='name'>Name: </label> &emsp;
-                        <input onChange={ handleChange } value={ name } id='name' placeholder='Name' autoFocus required></input>
+                        <input onChange={ handleChange } value={ name } id='name' placeholder='Name' size= '40' style={{ float: 'right' }} autoFocus required></input>
                         <br/>
                     <label htmlFor='description'>Description: </label> &emsp;
-                        <input onChange={ handleChange } value={ description } id='description' placeholder='Description'></input>
+                        <input onChange={ handleChange } value={ description } id='description' placeholder='Description' size= '40' style={{ float: 'right' }}></input>
                         <br/>
                     <label htmlFor='address'>Address: </label> &emsp;
-                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40' required></input>
+                        <input onChange={ handleChange } value={ address } id='address' placeholder='Address' size= '40' style={{ float: 'right' }} required></input>
                         <br/><br/>
                 {
                     school ? (
@@ -88,17 +88,31 @@ export class SchoolsCreateUpdate extends Component {
                         <Button onClick={ () => destroySchool(school, history, students, false) } color='danger' block>Delete</Button>
                         <hr/>
                         { enrolledStudents.length > 0 ? <h4>Enrolled students</h4> : null }
-                        <ul>
-                        {
-                            enrolledStudents.map(enrolledStudent => (
-                                <li key={ enrolledStudent.id }>
-                                    { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
-                                    &emsp;
-                                    <Button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) } color='danger' style={{ float: 'right' }}>X</Button>
-                                    <br/><br/>
-                                </li>))
-                        }
-                        </ul>
+                        <Table striped dark>
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>GPA</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                enrolledStudents.map(enrolledStudent => (
+                                    <tr key={ enrolledStudent.id }>
+                                        <td>
+                                            { enrolledStudent.lastName + ', ' + enrolledStudent.firstName }
+                                        </td>
+                                        <td>
+                                            { enrolledStudent.GPA }
+                                        </td>
+                                        <td>
+                                            <Button onClick={ () => updateStudent({ ...enrolledStudent, schoolId: null }, history, false) } color='danger' style={{ float: 'right' }}>X</Button>
+                                        </td>
+                                    </tr>))
+                            }
+                            </tbody>
+                        </Table>
                         <form onSubmit={ onStudentSubmit }>
                             <select onChange={ handleChange } value={ studentName } id='studentName'>
                                 <option>--Select Student--</option>
