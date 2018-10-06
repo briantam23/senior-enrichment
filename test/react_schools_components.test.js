@@ -120,14 +120,14 @@ describe('The `School` React Components:', () => {
 
         })
 
-        it('renders a <li> for each school', () => {
+        it('renders a <tr> for each school', () => {
             
-            expect(schoolsWrapper.find('li').length).to.be.equal(schools.length);
+            expect(schoolsWrapper.find('tr').length).to.be.equal(schools.length + 1); //exclude row header
         })
 
-        it('renders a <button> within the <li> for each school', () => {
+        it('renders a <Button> within the <tr> for each school', () => {
 
-            expect(schoolsWrapper.find('li').find('button').length).to.be.equal(schools.length);
+            expect(schoolsWrapper.find('tr').find('Button').length).to.be.equal(schools.length); 
         })
     })
 
@@ -153,7 +153,7 @@ describe('The `School` React Components:', () => {
             expect(destroySchoolSpy).not.to.have.been.called;
 
             //This will trigger any onClick handlers registered to the component.
-            schoolsCreateUpdateWrapper.find('button').at(1).simulate('click');
+            schoolsCreateUpdateWrapper.find('Button').at(1).simulate('click');
 
             expect(destroySchoolSpy).to.have.been.called;
         })
