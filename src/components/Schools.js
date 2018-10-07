@@ -14,7 +14,6 @@ export const Schools = ({ schools, history, students, destroySchool }) => (
                 <tr>
                     <th>School Name</th>
                     <th>Number of Students</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>

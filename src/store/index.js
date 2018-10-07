@@ -5,7 +5,7 @@ import schoolsReducer from './reducers/schools';
 import studentsReducer from './reducers/students';
 
 
-export const reducer = combineReducers({
+const reducer = combineReducers({
     schools: schoolsReducer,
     students: studentsReducer
 })

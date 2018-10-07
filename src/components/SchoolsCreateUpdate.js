@@ -93,7 +93,6 @@ export class SchoolsCreateUpdate extends Component {
                                 <tr>
                                     <th>Student Name</th>
                                     <th>GPA</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -15,7 +15,6 @@ const Students = ({ students, schools, history, destroyStudent }) => (
                     <th>Student Name</th>
                     <th>School Name</th>
                     <th>GPA</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
