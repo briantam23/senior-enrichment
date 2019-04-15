@@ -258,7 +258,7 @@ describe('The `Schools` Route:', () => {
                 .delete('/api/schools/' + school.id)
                 .expect(204)
 
-            const foundSchool = await School.findById(school.id);
+            const foundSchool = await School.findByPk(school.id);
 
             expect(foundSchool).to.not.exist;
         })

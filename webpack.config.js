@@ -1,7 +1,7 @@
 module.exports = {
     devtool: 'source-map',
     output: {
-        path: __dirname + '/public',
+        path: __dirname + '/public/scripts',
         filename: 'bundle.js'
     },
     entry: ['babel-polyfill', './src/index.js'],
