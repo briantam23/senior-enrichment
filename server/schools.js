@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 router.get('/:id', (req, res, next) => {
-    School.findById(req.params.id)
+    School.findByPk(req.params.id)
         .then(school => {
             if(!school) return res.sendStatus(404);
             res.send(school)
@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
         .catch(next)
 })
 router.put('/:id', (req, res, next) => {
-    School.findById(req.params.id)
+    School.findByPk(req.params.id)
         .then(school => school.update(req.body))
         .then(_school => res.send(_school))
         .catch(next)

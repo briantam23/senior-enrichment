@@ -216,7 +216,7 @@ describe('The `Schools` Route:', () => {
                     name: 'Awesome PUT-Updated School'
                 })
 
-            const foundSchool = await School.findById(school.id);
+            const foundSchool = await School.findByPk(school.id);
 
             expect(foundSchool).to.exist;
             expect(foundSchool.name).to.equal('Awesome PUT-Updated School');
