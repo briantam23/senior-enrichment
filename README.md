@@ -1,10 +1,11 @@
-# Senior Enrichment
+# 🎓 Senior Enrichment
 
 ## Setting up
 
 ### Dependencies
 
 * [React](https://reactjs.org)
+* [Redux](https://redux.js.org)
 * [Enzyme](https://airbnb.io/enzyme)
 * [Mocha](https://mochajs.org)
 * [Express](https://expressjs.com)
