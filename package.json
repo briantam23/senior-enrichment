@@ -1,7 +1,24 @@
 {
   "name": "senior-enrichment",
+  "author": {
+    "name": "Brian Tam",
+    "email": "briantam23@gmail.com",
+    "url": "https://briantam23.github.io"
+  },
+  "contributors": [
+    {
+      "name": "Brian Tam",
+      "email": "briantam23@gmail.com",
+      "url": "https://briantam23.github.io"
+    }
+  ],
+  "homepage": "https://senior-enrichment-btam.herokuapp.com",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Single Page App created with React, Redux, & Express, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest).",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/briantam23/senior-enrichment.git"
+  },
   "main": "server/index.js",
   "scripts": {
     "start": "node ./server/index.js",
@@ -11,8 +28,14 @@
     "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment nodemon server/index.js --ignore dist --ignore src",
     "test": "mocha ./test/*.test.js --watch --require babel-polyfill --compilers js:babel-register"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "redux",
+    "nodejs",
+    "enzyme",
+    "mocha",
+    "postgres"
+  ],
   "license": "ISC",
   "babel": {
     "presets": [

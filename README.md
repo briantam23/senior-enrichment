@@ -1,5 +1,11 @@
 # 🎓 Senior Enrichment
 
+A Single Page App created with React, Redux, & Express, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest).
+
+## Live Demo
+
+Currently deployed to [Heroku](https://senior-enrichment-btam.herokuapp.com/)!
+
 ## Setting up
 
 ### Dependencies
@@ -18,5 +24,6 @@
 
 The `run start:dev` command will run both the `webpack` process (in watch mode) to build your client-side javascript files, and the Node process for your server with `nodemon`.
 
-* also created React, Redux, Express, Sequelize, and Function tests, which can be run with `npm run test`
-* also deployed to [Heroku](https://senior-enrichment-btam.herokuapp.com)
+### Miscellaneous
+
+* created React, Redux, Express, Sequelize, and Function tests, which can be run with `npm run test`
