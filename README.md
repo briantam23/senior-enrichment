@@ -18,6 +18,7 @@ Currently deployed to [Heroku](https://senior-enrichment-btam.herokuapp.com/)!
 
 ### Installation
 
+* `createdb senior-enrichment`
 * `npm install` (or `yarn install`)
 * `npm run start:dev`
 * open up [localhost:8080](http://localhost:8080) in a web browser

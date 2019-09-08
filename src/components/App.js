@@ -22,7 +22,7 @@ class App extends Component {
         const { loadInitialSchools, loadInitialStudents } = this.props;
         loadInitialSchools()
             .then(() => loadInitialStudents())
-            .then(() =>this.setState({ loading: false }))
+            .then(() => this.setState({ loading: false }))
     }
     render() {
         if(this.state.loading) return <ReactLoading type='spokes' color='black' />
