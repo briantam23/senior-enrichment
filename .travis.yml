@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+services:
+  - postgresql
+env:
+  - DATABASE_URL=postgres://localhost/senior-enrichment
+  - TEST=TRUE
+before_script:
+  - "createdb senior-enrichment"

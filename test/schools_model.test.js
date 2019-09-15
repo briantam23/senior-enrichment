@@ -19,7 +19,7 @@ describe('The `School` model:', () => {
     });
 
     // Next, we create an (un-saved!) article instance before every spec
-    let school;
+    /* let school;
     beforeEach(() => {
         school = School.build({
             name: 'Long Beach',
@@ -34,9 +34,9 @@ describe('The `School` model:', () => {
             School.truncate({ cascade: true }),
             Student.truncate({ cascade: true })
         ])
-    })
+    }) */
 
-    describe('attributes definition', () => {
+    /* describe('attributes definition', () => {
         it('includes `name,` `description,` and `address` fields', async () => {
 
             const savedSchool = await school.save();
@@ -77,7 +77,7 @@ describe('The `School` model:', () => {
             expect(error).to.be.an.instanceOf(Error);
             expect(error.message).to.contain('Validation error');
         })
-    })
+    }) */
 
     describe('associations', () => {
         it('has many students', async () => {
@@ -103,7 +103,7 @@ describe('The `School` model:', () => {
         })
     })
 
-    describe('capitalization hooks', () => {
+    /* describe('capitalization hooks', () => {
 
         it('capitalizes before creating', async () => {
 
@@ -125,5 +125,5 @@ describe('The `School` model:', () => {
             const updatedSchool = await createdSchool.update({ name: 'lido Beach' });
             expect(updatedSchool.name).to.equal('Lido Beach');
         })
-    })
+    }) */
 })
