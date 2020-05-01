@@ -27,7 +27,9 @@
     "build": "npm run webpack -- --watch --mode=development",
     "start:dev": "npm run build & DATABASE_URL=postgres://localhost/senior-enrichment nodemon server/index.js --ignore public --ignore src",
     "test": "mocha ./test/*.test.js --require babel-polyfill --compilers js:babel-register",
-    "test:dev": "npm test -- --watch"
+    "test:dev": "npm test -- --watch",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "react",
@@ -51,7 +53,7 @@
     "bootstrap": "^4.3.1",
     "chalk": "^2.4.1",
     "express": "^4.16.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "pg": "^7.4.3",
     "popper.js": "^1.15.0",
     "react": "^16.5.0",
@@ -63,7 +65,8 @@
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^6.0.0"
+    "sequelize": "^6.0.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -85,5 +88,6 @@
     "supertest": "^4.0.2",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
-  }
+  },
+  "snyk": true
 }
